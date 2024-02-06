@@ -1,0 +1,21 @@
+.promo {
+    background-color: #073042;
+    padding: 50px 70px 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.promo__text {
+    font-size: 40px;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-align: start;
+    width: 626px;
+    margin: 0 0 102px;
+}
+
+.promo__image {
+    width: 722px;
+    height: 244px;
+    align-self: flex-end;
+}
