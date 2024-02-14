@@ -1,4 +1,5 @@
 import "./AboutMe.css";
+import myPhoto from "../../../images/DSC09460.jpg"
 
 function AboutMe() {
   return (
@@ -17,28 +18,16 @@ function AboutMe() {
             заканчиваю курс по веб-разработке в Яндекс Практикуме и ищу работу,
             как на фрилансе, так и в офисе.
           </p>
+          <a
+            href="https://github.com/liliyamikhlina"
+            target="_blank"
+            rel="noreferrer"
+            className="aboutme__github"
+          >
+            Github
+          </a>
         </div>
-        <img className="aboutme__photo" alt="Мое фото"></img>
-      </div>
-      <a
-        href="https://github.com/liliyamikhlina"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Github
-      </a>
-      <p>Портфолио</p>
-      <div className="aboutme__link-box">
-        <p className="aboutme__link">Статичный сайт</p>
-        <button className="aboutme__link-button">↗</button>
-      </div>
-      <div className="aboutme__link-box">
-        <p className="aboutme__link">Адаптивный сайт</p>
-        <button className="aboutme__link-button">↗</button>
-      </div>
-      <div className="aboutme__link-box">
-        <p className="aboutme__link">Одностраничное приложение</p>
-        <button className="aboutme__link-button">↗</button>
+        <img className="aboutme__photo" alt="Мое фото" src={myPhoto}></img>
       </div>
     </section>
   );

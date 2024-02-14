@@ -1,3 +1,4 @@
+import "./Movies.css"
 
 function Moovies() {
     return (

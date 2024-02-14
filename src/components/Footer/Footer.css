@@ -1,5 +1,39 @@
 .footer {
-    margin: 0;
-    padding: 0 70px;
-    /* border: 1px solid red; */
+  margin: 0;
+  padding: 79px 70px 20px;
+}
+
+.footer__beat {
+  margin: 0;
+  padding: 0 0 20px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #8b8b8b;
+  border-bottom: 1px solid #424242;
+}
+
+.footer__box {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.footer_paraphaph {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #FFFFFF;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+.footer_paraphaph_yandex {
+    margin-left: auto;
+    padding: 0 20px 0 0;
 }
