@@ -7,9 +7,9 @@ import Movies from '../Movies/Movies'
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header main={true}/>
       <Main />
-      <Footer />
+      <Footer /> */}
 
       <Movies />
     </div>

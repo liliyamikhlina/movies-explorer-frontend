@@ -60,9 +60,9 @@
   margin: 0 0 0 7px;
   padding: 7px;
   border-radius: 50%;
-  background-color: #0F4157;
+  background-color: #313131;
 }
 
-.header__account-pic_grey {
-  background-color: #313131;
+.header__account-pic_blue {
+  background-color: #0F4157;
 }
