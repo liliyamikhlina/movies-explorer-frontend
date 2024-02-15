@@ -10,10 +10,13 @@ function Portfolio() {
       </div>
 
       <div className="portfolio__link-box">
+      {/* <a href="https://github.com/liliyamikhlina/russian-travel"> */}
         <p className="portfolio__link">Адаптивный сайт</p>
         <button className="portfolio__link-button">↗</button>
+        {/* </a> */}
       </div>
       
+     
       <div className="portfolio__link-box">
         <p className="portfolio__link">Одностраничное приложение</p>
         <button className="portfolio__link-button">↗</button>
