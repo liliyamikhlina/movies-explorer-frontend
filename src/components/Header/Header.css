@@ -56,6 +56,10 @@
   padding: 0;
 }
 
+.header__signin:hover {
+  cursor: pointer;
+}
+
 .header__account-pic {
   margin: 0 0 0 7px;
   padding: 7px;

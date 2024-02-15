@@ -1,4 +1,3 @@
-import "../../Movies/Movies.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList() {

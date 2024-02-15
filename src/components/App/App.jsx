@@ -5,10 +5,13 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import SavedMoovies from "../SavedMoovies/SavedMoovies";
+import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
         <Route
           path="/"
@@ -41,8 +44,21 @@ function App() {
               <Footer />
             </>
           }
-
         ></Route>
+
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header main={false} />
+              <Profile name={"Лилия"} email={"pochta@yandex.ru"} />
+            </>
+          }
+        ></Route>
+
+        <Route path="/signin" element={<Login />}></Route>
+
+        <Route path="/signup" element={<Register />}></Route>
       </Routes>
     </div>
   );

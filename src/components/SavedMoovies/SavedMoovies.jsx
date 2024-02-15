@@ -1,4 +1,3 @@
-import "../Movies/Movies.css";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
 
