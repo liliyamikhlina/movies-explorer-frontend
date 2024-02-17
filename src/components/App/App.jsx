@@ -8,6 +8,7 @@ import SavedMoovies from "../SavedMoovies/SavedMoovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import NotFound from "../NotFound/NotFound";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           path="/"
           element={
             <>
-              <Header main={true} />
+              <Header main={true}
+              isLoggedIn={false} />
               <Main />
               <Footer />
             </>
@@ -28,7 +30,8 @@ function App() {
           path="/movies"
           element={
             <>
-              <Header main={false} />
+              <Header main={false}
+              isLoggedIn={true} />
               <Movies />
               <Footer />
             </>
@@ -39,7 +42,8 @@ function App() {
           path="/saved-movies"
           element={
             <>
-              <Header main={false} />
+              <Header main={false}
+              isLoggedIn={true} />
               <SavedMoovies />
               <Footer />
             </>
@@ -50,7 +54,8 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header main={false} />
+              <Header main={false}
+              isLoggedIn={true} />
               <Profile name={"Лилия"} email={"pochta@yandex.ru"} />
             </>
           }
@@ -59,6 +64,8 @@ function App() {
         <Route path="/signin" element={<Login />}></Route>
 
         <Route path="/signup" element={<Register />}></Route>
+
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>
   );

@@ -6,7 +6,9 @@ function Register() {
         register={true}
         title={"Добро пожаловать!"}
         button={"Зарегистрироваться"}
-        link={"Уже зарегистрированы? Войти"}
+        text={"Уже зарегистрированы?"}
+        linkTo={"/signin"}
+        linkText={"Войти"}
       />
   );
 }
