@@ -8,8 +8,22 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fit, 1fr);
   column-gap: 20px;
   row-gap: 38px;
+}
+
+@media (max-width: 1024px) {
+  .cards__box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 990px) {
+  .cards__box {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 70px;
+  }
 }
 
 .cards__more {
@@ -30,4 +44,9 @@
 
 .cards__more_inactive {
   opacity: 0;
+}
+
+.cards__more:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }

@@ -6,19 +6,44 @@
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .promo {
+    padding: 300px 44px 70px;
+  }
+}
+
 .promo__text {
   font-size: 40px;
   font-weight: 400;
   color: #ffffff;
   width: 626px;
   margin: 0 0 102px;
+  padding: 0;
   line-height: 52px;
   letter-spacing: -0.04em;
   text-align: left;
 }
 
+@media (max-width: 800px) {
+  .promo__text {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 140px;
+  }
+}
+
 .promo__image {
+  margin: 0;
+  padding: 0;
   width: 722px;
   height: 244px;
   align-self: flex-end;
+}
+
+@media (max-width: 800px) {
+  .promo__image {
+    width: 680px;
+    height: 230px;
+    align-self: center;
+  }
 }
