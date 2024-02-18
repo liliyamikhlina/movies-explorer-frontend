@@ -4,16 +4,30 @@
   padding: 110px 70px;
 }
 
+@media (max-width: 768px) {
+  .aboutpr {
+    padding: 90px 50px;
+  }
+}
+
 .aboutpr__box {
   display: grid;
-  grid-template-columns: 550px 1fr;
-  grid-template-rows: 24px 40px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
   grid-auto-flow: column;
   color: #ffffff;
   text-align: left;
   margin: 70px 0 110px;
   row-gap: 26px;
   column-gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .aboutpr__box {
+    row-gap: 22px;
+    column-gap: 30px;
+    margin-bottom: 93px;
+  }
 }
 
 .aboutpr__paragraph {
@@ -38,7 +52,7 @@
   width: 100%;
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: 228px 1fr;
+  grid-template-columns: 20% 80%;
   grid-template-rows: 36px 17px;
   row-gap: 14px;
 }

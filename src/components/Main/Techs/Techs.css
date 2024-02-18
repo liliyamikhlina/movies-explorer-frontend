@@ -6,6 +6,12 @@
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+}
+
 .techs__title {
   color: #ffffff;
   font-size: 50px;
@@ -14,6 +20,13 @@
   letter-spacing: -0.04em;
   text-align: center;
   margin: 90px 0 26px;
+}
+
+@media (max-width: 768px) {
+  .techs__title {
+    font-size: 50px;
+    margin: 80px 0 22px;
+  }
 }
 
 .techs__paragraph {
@@ -26,6 +39,14 @@
   width: 460px;
   align-self: center;
   margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .techs__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 
 .techs__box {
@@ -35,15 +56,22 @@
   align-self: center;
 }
 
+@media (max-width: 768px) {
+  .techs__box {
+    margin-top: 83px;
+  }
+}
+
 .techs__box-option {
   width: 90px;
   height: 60px;
   background: #303030;
   border-radius: 10px;
   margin-right: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   line-height: 60px;
+  padding: 0;
 }
 
 .techs__box-option:last-of-type {
