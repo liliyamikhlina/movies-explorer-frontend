@@ -3,7 +3,7 @@
 
 body {
   margin: 0;
-  background-color: black;
+  background-color: #202020;
   font-family: "Inter", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,12 +11,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #ffffff;
 }
-
-/* a:visited {
-  text-decoration: none;
-} */
 
 .title_h2 {
   margin: 0;

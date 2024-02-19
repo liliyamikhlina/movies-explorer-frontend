@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import account from "../../images/icon__COLOR_icon-main.svg";
 import "./Header.css";
+import logo from "../../images/logo.svg";
+import account from "../../images/profile.png";
+import account_blue from "../../images/profile-blue.png";
+import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ main, isLoggedIn }) {
   return (
@@ -11,30 +13,27 @@ function Header({ main, isLoggedIn }) {
       </Link>
 
       {isLoggedIn && (
-        <nav className="header__box header__box_signed">
-          <Link to="/movies" className="header__link header__link_films">
-            Фильмы
-          </Link>
-          <Link to="/saved-movies" className="header__link">
-            Сохраненные фильмы
-          </Link>
-        </nav>
+        <>
+          <nav className="header__box header__box_signed">
+            <Link to="/movies" className="header__link header__link_films">
+              Фильмы
+            </Link>
+            <Link to="/saved-movies" className="header__link">
+              Сохраненные фильмы
+            </Link>
+          </nav>
+          <Link to="/profile" className="header__account-link">
+              <img
+                className="header__account-pic"
+                alt="Аккаунт"
+                src={main ? account_blue : account}
+              ></img>
+            </Link>
+            <button className="header__sidebar-button"></button>
+        </>
       )}
 
-      {isLoggedIn && (
-        <Link to="/profile">
-          <nav className="header__box">
-            <p className="header__link">Аккаунт</p>
-            <img
-              className={`header__account-pic ${
-                main ? "header__account-pic_blue" : ""
-              }`}
-              alt="Аккаунт"
-              src={account}
-            ></img>
-          </nav>
-        </Link>
-      )}
+      {isLoggedIn && (<Sidebar />)}
 
       {!isLoggedIn && (
         <nav className="header__box">
