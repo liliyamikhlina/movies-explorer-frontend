@@ -3,6 +3,12 @@
   padding: 246px 0 60px;
 }
 
+@media (max-width: 768px) {
+  .notfound{
+   padding: 408px 0 222px;
+  }
+}
+
 .notfound__title {
   color: #ffffff;
   margin: 0;
@@ -10,6 +16,7 @@
   font-size: 140px;
   font-weight: 400;
   text-align: center;
+  line-height: 169.43px;
 }
 
 .notfound__box {

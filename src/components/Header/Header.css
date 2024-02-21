@@ -10,7 +10,7 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 18px 30px;
+    padding: 15px 30px;
   }
 }
 
@@ -29,6 +29,14 @@
 .header__logo:hover {
   opacity: 0.8;
 }
+
+.header__logo-link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
 
 .header__box {
   margin: 0;
@@ -114,6 +122,8 @@
 }
 
 .header__sidebar-button {
+  margin: auto 0;
+  padding: 0;
   border: none;
   background-image: url("../../images/sidebar.svg");
   width: 44px;

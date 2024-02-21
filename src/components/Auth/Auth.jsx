@@ -14,16 +14,16 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
           {register && (
             <div className="auth__input-box">
               <label className="auth__input-label">Имя</label>
-              <input className="auth__input"></input>
+              <input type="text" className="auth__input"></input>
             </div>
           )}
           <div className="auth__input-box">
             <label className="auth__input-label">E-mail</label>
-            <input className="auth__input"></input>
+            <input type="email" className="auth__input"></input>
           </div>
           <div className="auth__input-box">
             <label className="auth__input-label">Пароль</label>
-            <input className="auth__input"></input>
+            <input type="password" className="auth__input"></input>
           </div>
           <span className="auth__input-error auth__input-error_inactive">
             Что-то пошло не так...

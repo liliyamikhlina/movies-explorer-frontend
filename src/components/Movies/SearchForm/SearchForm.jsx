@@ -1,14 +1,8 @@
-import { useState } from "react";
 import "./SearchForm.css";
 import search from "../../../images/search.svg";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm() {
-  const [checkboxActive, setCheckboxActive] = useState(true);
-
-  const handleToggleCheckbox = () => {
-    setCheckboxActive(!checkboxActive);
-  };
-
   return (
     <section className="search">
       <div className="search__box">
@@ -17,14 +11,8 @@ function SearchForm() {
           <input className="search__input" placeholder="Фильм"></input>
           <button className="search__button">Найти</button>
         </form>
-        <button
-          className={`search__checkbox ${
-            checkboxActive ? "" : "search__checkbox_inactive"
-          }`}
-          onClick={handleToggleCheckbox}
-        ></button>
-        <p className="search__paraghraph">Короткометражки</p>
       </div>
+      <FilterCheckbox />
     </section>
   );
 }

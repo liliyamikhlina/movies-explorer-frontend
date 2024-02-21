@@ -1,3 +1,29 @@
+.sidebar__bg {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+.sidebar__bg::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  background: #000000;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.sidebar__bg_active {
+  display: block;
+}
+
 .sidebar {
   width: 520px;
   height: 100vh;
@@ -7,54 +33,48 @@
   margin: 0;
   padding: 0;
   background-color: #202020;
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  display: none;
+  justify-content: space-between;
   z-index: 2;
 }
 
-/* .sidebar::after {
-  background: #000000;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  z-index: -1;
-} */
-
-@media (max-width: 768px) {
+@media (max-width: 520px) {
   .sidebar {
-    display: flex;
+    width: 100%;
   }
 }
 
-@media (max-width: 520px) {
-    .sidebar {
-        width: 100%;
-    }
-}
-
-
 .sidebar__link {
-  margin: 0;
-  padding: 0;
+  margin: 0 0 22px;
+  padding: 0 0 4px;
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
-  letter-spacing: 0px;
   text-align: center;
   color: #ffffff;
 }
 
+.sidebar__link_active {
+  border-bottom: 2px solid #ffffff;
+}
+
 .sidebar__link-box {
-  margin: 159px 0;
+  margin: 159px 0 0;
   padding: 0;
-  display: grid;
-  row-gap: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar__account-link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+
 }
 
 .sidebar__account {
@@ -62,4 +82,25 @@
   height: 32px;
   margin: 0 0 90px;
   padding: 0;
+  opacity: 1;
+}
+
+.sidebar__close-button {
+  margin: 0;
+  padding: 0;
+  background-image: url(../../images/Close.png);
+  border: none;
+  width: 19px;
+  height: 19px;
+  background-color: transparent;
+  background-size: cover;
+  position: absolute;
+  opacity: 1;
+  top: 22.4px;
+  right: 22.4px;
+}
+
+.sidebar__close-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }

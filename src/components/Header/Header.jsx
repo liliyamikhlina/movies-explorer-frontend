@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
@@ -6,9 +7,15 @@ import account_blue from "../../images/profile-blue.png";
 import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ main, isLoggedIn }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleSidebarButtonClick = () => {
+      setIsSidebarOpen(!isSidebarOpen);
+  }
+
   return (
     <header className={`header ${main ? "header_blue" : ""}`}>
-      <Link to="/">
+      <Link to="/" className="header__logo-link">
         <img alt="Лого" src={logo} className="header__logo" />
       </Link>
 
@@ -29,11 +36,13 @@ function Header({ main, isLoggedIn }) {
                 src={main ? account_blue : account}
               ></img>
             </Link>
-            <button className="header__sidebar-button"></button>
+            <button className="header__sidebar-button"
+              onClick={handleSidebarButtonClick}
+            ></button>
         </>
       )}
 
-      {isLoggedIn && (<Sidebar />)}
+      {isLoggedIn && isSidebarOpen && (<Sidebar isOpen={isSidebarOpen} onClose={handleSidebarButtonClick} />)}
 
       {!isLoggedIn && (
         <nav className="header__box">

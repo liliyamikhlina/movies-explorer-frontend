@@ -51,8 +51,12 @@
 
 .techs__box {
   margin: 100px 0 0;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
+
   align-self: center;
 }
 
@@ -62,18 +66,30 @@
   }
 }
 
-.techs__box-option {
+@media (max-width: 700px) {
+  .techs__box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.techs__option {
   width: 90px;
   height: 60px;
   background: #303030;
   border-radius: 10px;
-  margin-right: 10px;
   color: #ffffff;
+  font-size: 14px;
   text-align: center;
   line-height: 60px;
+  margin: 0;
   padding: 0;
 }
 
-.techs__box-option:last-of-type {
-  margin-right: 0;
+@media (max-width: 768px) {
+  .techs__option {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 57px;
+  }
 }

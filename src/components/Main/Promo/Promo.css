@@ -12,6 +12,12 @@
   }
 }
 
+@media (max-width: 680px) {
+  .promo {
+    overflow: hidden;
+  }
+}
+
 .promo__text {
   font-size: 40px;
   font-weight: 400;
@@ -45,5 +51,13 @@
     width: 680px;
     height: 230px;
     align-self: center;
+  }
+}
+
+
+@media (max-width: 680px) {
+  .promo__image {
+    object-fit: fill;
+    /* overflow: hidden; */
   }
 }

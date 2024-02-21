@@ -47,6 +47,13 @@
   line-height: 20px;
 }
 
+@media (max-width: 768px) {
+  .aboutpr__paragraph_small {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
 .aboutpr__table {
   margin: 0;
   width: 100%;
@@ -65,7 +72,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #8B8B8B;
+  color: #8b8b8b;
   margin: 0;
 }
 
@@ -77,6 +84,6 @@
 
 .aboutpr__cell_grey {
   background-color: #303030;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 400;
 }

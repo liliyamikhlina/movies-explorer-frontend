@@ -10,10 +10,25 @@
 }
 
 .aboutme__box {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 270px;
+  grid-template-rows: repeat(auto-fill, 1fr);
   margin: 66px 0 0;
-  justify-content: space-between;
+  padding: 0;
+  justify-items: flex-start;
+}
+
+@media (max-width: 1023px) {
+  .aboutme__box {
+    grid-template-columns: 1fr 255px;
+  }
+}
+
+@media (max-width: 720px) {
+  .aboutme__box {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
 }
 
 .aboutme__infobox {
@@ -24,6 +39,18 @@
   justify-content: flex-start;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 1023px) {
+  .aboutme__infobox {
+    width: 364px;
+  }
+}
+
+@media (max-width: 720px) {
+  .aboutme__infobox {
+    order: 2;
+  }
 }
 
 .aboutme__name {
@@ -37,6 +64,13 @@
   padding: 0;
 }
 
+@media (max-width: 768px) {
+  .aboutme__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
 .aboutme__job {
   font-size: 18px;
   font-weight: 500;
@@ -48,6 +82,14 @@
   padding: 0;
 }
 
+@media (max-width: 768px) {
+  .aboutme__job {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+
 .aboutme__bio {
   font-size: 14px;
   font-weight: 400;
@@ -55,8 +97,15 @@
   letter-spacing: 0px;
   text-align: left;
   color: #ffffff;
-  margin: 26px 0 0;
+  margin: 26px 0 40px;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .aboutme__bio {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 
 .aboutme__photo {
@@ -65,6 +114,21 @@
   margin: 0;
   padding: 0;
   border-radius: 10px;
+}
+
+@media (max-width: 1023px) {
+  .aboutme__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media (max-width: 720px) {
+  .aboutme__photo {
+    order: 1;
+    width: 292px;
+    height: 352px;
+  }
 }
 
 .aboutme__github {
@@ -76,6 +140,8 @@
   padding: 0;
   margin: auto 0 0;
   opacity: 1;
+  color: #FFFFFF;
+
 }
 
 .aboutme__github:hover {
