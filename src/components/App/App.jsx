@@ -19,7 +19,7 @@ function App() {
           element={
             <>
               <Header main={true}
-              isLoggedIn={true} />
+              isLoggedIn={false} />
               <Main />
               <Footer />
             </>

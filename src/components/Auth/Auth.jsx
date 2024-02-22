@@ -6,11 +6,11 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
   return (
     <section className="auth">
       <div className="auth__box">
-        <Link to="/">
+        <Link to="/" className="auth__logo-link">
           <img alt="Лого" src={logo} className="auth__logo" />
         </Link>
         <h2 className="auth__title">{title}</h2>
-        <form>
+        <form className="auth__form">
           {register && (
             <div className="auth__input-box">
               <label className="auth__input-label">Имя</label>
@@ -28,7 +28,7 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
           <span className="auth__input-error auth__input-error_inactive">
             Что-то пошло не так...
           </span>
-          <button className="auth__button">{button}</button>
+          <button type="submit" className="auth__button">{button}</button>
         </form>
         <div className="auth__link-box">
           <p className="auth__text">{text}</p>
