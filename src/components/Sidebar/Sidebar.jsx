@@ -8,16 +8,16 @@ function Sidebar({ isOpen, onClose }) {
   const currentPage = location.pathname;
 
   return (
-    <section
-      className={`sidebar__bg ${isOpen ? "sidebar__bg_active" : ""}`}
-    >
+    <section className={`sidebar__bg ${isOpen ? "sidebar__bg_active" : ""}`}>
       <div className="sidebar">
-        <button
-          className="sidebar__close-button"
-          onClick={onClose}
-        />
+        <button className="sidebar__close-button" onClick={onClose} />
         <nav className="sidebar__link-box">
-          <Link to="/" className="sidebar__link">
+          <Link
+            to="/"
+            className={`sidebar__link ${
+              currentPage === "/" ? "sidebar__link_active" : ""
+            }`}
+          >
             Главная
           </Link>
           <Link

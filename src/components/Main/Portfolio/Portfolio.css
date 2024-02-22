@@ -10,6 +10,12 @@
   }
 }
 
+@media (max-width: 430px) {
+  .portfolio {
+    padding: 0 14px 70px;
+  }
+}
+
 .portfolio__title {
   color: #8b8b8b;
   font-size: 18px;
@@ -18,6 +24,13 @@
   text-align: left;
   margin: 0 0 50px;
   padding: 0;
+}
+
+@media (max-width: 430px) {
+  .portfolio__title {
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
 }
 
 .portfolio__link-box {
@@ -52,6 +65,13 @@
   }
 }
 
+@media (max-width: 430px) {
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
 .portfolio__link-button {
   margin: 0;
   padding: 0;
@@ -67,6 +87,12 @@
 @media (max-width: 768px) {
   .portfolio__link-button {
     font-size: 28px;
+  }
+}
+
+@media (max-width: 430px) {
+  .portfolio__link-button {
+    font-size: 18px;
   }
 }
 

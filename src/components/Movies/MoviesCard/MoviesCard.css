@@ -10,6 +10,12 @@
   }
 }
 
+@media (max-width: 339px) {
+  .card {
+    width: 300px;
+  }
+}
+
 .card__photo {
   width: 270px;
   height: 151px;
@@ -22,6 +28,13 @@
   .card__photo {
     width: 339px;
     height: 190px;
+  }
+}
+
+@media (max-width: 339px) {
+  .card__photo {
+    width: 300px;
+    height: 168px;
   }
 }
 
@@ -43,6 +56,14 @@
   margin: 4px 0 0;
   padding: 0;
   max-width: 226px;
+}
+
+@media (max-width: 339px) {
+  .card__title {
+    font-size: 12px;
+    line-height: 14.52px;
+    margin-top: 5px;
+  }
 }
 
 .card__like {
@@ -74,4 +95,11 @@
   line-height: 13.31px;
   text-align: left;
   color: #8b8b8b;
+}
+
+@media (max-width: 339px) {
+  .card__duration {
+    font-size: 10px;
+    line-height: 12.1px;
+  }
 }

@@ -14,7 +14,14 @@
 
 @media (max-width: 680px) {
   .promo {
+    object-fit: fill;
     overflow: hidden;
+  }
+}
+
+@media (max-width: 430px) {
+  .promo {
+    padding: 183px 10px 40px;
   }
 }
 
@@ -38,6 +45,14 @@
   }
 }
 
+@media (max-width: 430px) {
+  .promo__text {
+    font-size: 31px;
+    line-height: 39px;
+    margin-bottom: 60px;
+  }
+}
+
 .promo__image {
   margin: 0;
   padding: 0;
@@ -58,6 +73,5 @@
 @media (max-width: 680px) {
   .promo__image {
     object-fit: fill;
-    /* overflow: hidden; */
   }
 }

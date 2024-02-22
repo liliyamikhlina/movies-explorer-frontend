@@ -51,9 +51,16 @@
   padding: 0 0 4px;
   font-size: 18px;
   font-weight: 500;
-  line-height: 22px;
+  line-height: 21.78px;
   text-align: center;
   color: #ffffff;
+}
+
+@media (max-width: 520px) {
+  .sidebar__link {
+    margin-bottom: 15px;
+    padding-bottom: 7px;
+  }
 }
 
 .sidebar__link_active {
@@ -69,12 +76,17 @@
   align-items: center;
 }
 
+@media (max-width: 520px) {
+  .sidebar__link-box {
+    margin-top: 144px;
+  }
+}
+
 .sidebar__account-link {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
-
 }
 
 .sidebar__account {
@@ -83,6 +95,12 @@
   margin: 0 0 90px;
   padding: 0;
   opacity: 1;
+}
+
+@media (max-width: 520px) {
+  .sidebar__account {
+    margin-bottom: 46px;
+  }
 }
 
 .sidebar__close-button {

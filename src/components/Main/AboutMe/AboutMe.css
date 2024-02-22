@@ -9,6 +9,12 @@
   }
 }
 
+@media (max-width: 430px) {
+  .aboutme {
+    padding: 70px 14px;
+  }
+}
+
 .aboutme__box {
   display: grid;
   grid-template-columns: 1fr 270px;
@@ -16,6 +22,7 @@
   margin: 66px 0 0;
   padding: 0;
   justify-items: flex-start;
+  column-gap: 0;
 }
 
 @media (max-width: 1023px) {
@@ -28,6 +35,12 @@
   .aboutme__box {
     grid-template-columns: 1fr;
     row-gap: 40px;
+  }
+}
+
+@media (max-width: 430px) {
+  .aboutme__box {
+    margin-top: 60px;
   }
 }
 
@@ -50,6 +63,7 @@
 @media (max-width: 720px) {
   .aboutme__infobox {
     order: 2;
+    width: 100%;
   }
 }
 
@@ -68,6 +82,15 @@
   .aboutme__name {
     font-size: 40px;
     line-height: 40px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 430px) {
+  .aboutme__name {
+    font-size: 30px;
+    line-height: 36.31px;
+    margin-bottom: 20px;
   }
 }
 
@@ -89,6 +112,12 @@
   }
 }
 
+@media (max-width: 430px) {
+  .aboutme__job {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
 
 .aboutme__bio {
   font-size: 14px;
@@ -105,6 +134,14 @@
   .aboutme__bio {
     font-size: 12px;
     line-height: 18px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .aboutme__bio {
+    font-size: 11px;
+    line-height: 16px;
   }
 }
 
@@ -131,17 +168,22 @@
   }
 }
 
+@media (max-width: 292px) {
+  .aboutme__photo {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 .aboutme__github {
   font-size: 14px;
   font-weight: 500;
-  line-height: 17px;
-  letter-spacing: 0em;
+  line-height: 16.94px;
   text-align: left;
   padding: 0;
   margin: auto 0 0;
   opacity: 1;
-  color: #FFFFFF;
-
+  color: #ffffff;
 }
 
 .aboutme__github:hover {
