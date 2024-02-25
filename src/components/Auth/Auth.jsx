@@ -28,7 +28,7 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
           <span className="auth__input-error auth__input-error_inactive">
             Что-то пошло не так...
           </span>
-          <button type="submit" className="auth__button">{button}</button>
+          <button type="submit" className={`auth__button ${register ? "auth__button_register" : ""}`}>{button}</button>
         </form>
         <div className="auth__link-box">
           <p className="auth__text">{text}</p>
