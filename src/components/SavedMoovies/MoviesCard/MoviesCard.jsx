@@ -1,4 +1,4 @@
-import "../../Movies/MoviesCard/MoviesCard.css"
+import "../../Movies/MoviesCard/MoviesCard.css";
 import "./MoviesCard.css";
 
 function MoviesCard({ name, link, duration }) {
@@ -7,7 +7,7 @@ function MoviesCard({ name, link, duration }) {
       <img alt="Кадр из фильма" className="card__photo" src={link}></img>
       <div className="card__box">
         <h4 className="card__title">{name}</h4>
-        <button className="card__delete"></button>
+        <button type="button" className="card__delete"></button>
       </div>
       <p className="card__duration">{duration}</p>
     </section>

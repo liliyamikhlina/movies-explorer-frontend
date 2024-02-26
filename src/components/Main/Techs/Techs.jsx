@@ -8,15 +8,15 @@ function Techs() {
       <p className="techs__paragraph">
         На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в&nbsp;дипломном проекте.
       </p>
-      <div className="techs__box">
-        <div className="techs__option">HTML</div>
-        <div className="techs__option">CSS</div>
-        <div className="techs__option">JS</div>
-        <div className="techs__option">React</div>
-        <div className="techs__option">Git</div>
-        <div className="techs__option">Express.js</div>
-        <div className="techs__option">mongoDB</div>
-      </div>
+      <ul className="techs__box">
+        <li className="techs__option">HTML</li>
+        <li className="techs__option">CSS</li>
+        <li className="techs__option">JS</li>
+        <li className="techs__option">React</li>
+        <li className="techs__option">Git</li>
+        <li className="techs__option">Express.js</li>
+        <li className="techs__option">mongoDB</li>
+      </ul>
     </section>
   );
 }

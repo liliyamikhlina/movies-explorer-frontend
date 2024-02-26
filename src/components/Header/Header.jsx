@@ -37,6 +37,7 @@ function Header({ main, isLoggedIn }) {
             ></img>
           </Link>
           <button
+            type="button"
             className="header__sidebar-button"
             onClick={handleSidebarButtonClick}
           ></button>

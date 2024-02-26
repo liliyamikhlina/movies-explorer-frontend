@@ -185,6 +185,7 @@
     order: 1;
     width: 292px;
     height: 352px;
+    margin: 0 auto;
   }
 }
 
@@ -208,4 +209,5 @@
 
 .aboutme__github:hover {
   opacity: 0.7;
+  cursor: pointer;
 }

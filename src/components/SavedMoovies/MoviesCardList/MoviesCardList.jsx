@@ -29,7 +29,9 @@ function MoviesCardList() {
           isLiked={false}
         />
       </article>
-      <button className="cards__more cards__more_inactive ">Ещё</button>
+      <button type="button" className="cards__more cards__more_inactive ">
+        Ещё
+      </button>
     </section>
   );
 }

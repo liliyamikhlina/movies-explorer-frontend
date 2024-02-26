@@ -51,6 +51,7 @@
 
 .auth__logo:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .auth__title {

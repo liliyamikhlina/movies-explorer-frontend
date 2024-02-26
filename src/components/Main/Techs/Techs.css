@@ -91,7 +91,9 @@
 }
 
 .techs__box {
+  list-style-type: none;
   margin: 100px 0 0;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(auto-fill, 1fr);

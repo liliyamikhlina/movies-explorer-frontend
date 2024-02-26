@@ -1,5 +1,5 @@
 import "./Promo.css";
-import promo from "../../../images/text__COLOR_landing-logo.svg"
+import promo from "../../../images/text__COLOR_landing-logo.svg";
 
 function Promo() {
   return (
@@ -7,7 +7,11 @@ function Promo() {
       <h1 className="promo__text">
         Учебный проект студента факультета Веб-разработки.
       </h1>
-      <img alt="Промо" src={promo} className="promo__image"/>
+      <img
+        alt="Узор на главной странице проекта"
+        src={promo}
+        className="promo__image"
+      />
     </section>
   );
 }

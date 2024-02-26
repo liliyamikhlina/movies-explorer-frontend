@@ -133,7 +133,9 @@ function MoviesCardList() {
           duration={"1ч 3м"}
         />
       </ul>
-      <button className="cards__more">Ещё</button>
+      <button type="button" className="cards__more">
+        Ещё
+      </button>
     </section>
   );
 }

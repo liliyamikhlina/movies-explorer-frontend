@@ -10,10 +10,11 @@ function MoviesCard({ name, link, duration }) {
 
   return (
     <li className="card">
-      <img alt="Кадр из фильма" className="card__photo" src={link}></img>
+      <img alt={name} className="card__photo" src={link}></img>
       <div className="card__box">
         <h2 className="card__title">{name}</h2>
         <button
+          type="button"
           className={`card__like ${isLiked ? "card__like_active" : ""}`}
           onClick={handleLike}
         ></button>

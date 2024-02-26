@@ -9,7 +9,9 @@ function SearchForm() {
         <img alt="Лупа" className="search__pic" src={search}></img>
         <div className="search__input-box">
           <input className="search__input" placeholder="Фильм"></input>
-          <button className="search__button" type="submit">Найти</button>
+          <button className="search__button" type="submit">
+            Найти
+          </button>
         </div>
       </div>
       <FilterCheckbox />
