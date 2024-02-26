@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
-import account from "../../images/profile.png";
-import account_blue from "../../images/profile-blue.png";
+import account from "../../images/profile-no-text.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ main, isLoggedIn }) {
@@ -30,10 +29,11 @@ function Header({ main, isLoggedIn }) {
             </Link>
           </nav>
           <Link to="/profile" className="header__account-link">
+            Аккаунт
             <img
-              className="header__account-pic"
+              className={`header__account-pic ${main ? "header__account-pic_blue" : ""}`}
               alt="Аккаунт"
-              src={main ? account_blue : account}
+              src={account}
             ></img>
           </Link>
           <button

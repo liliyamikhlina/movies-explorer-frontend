@@ -8,7 +8,7 @@ function SearchForm() {
       <div className="search__box">
         <img alt="Лупа" className="search__pic" src={search}></img>
         <div className="search__input-box">
-          <input className="search__input" placeholder="Фильм"></input>
+          <input className="search__input" placeholder="Фильм" required></input>
           <button className="search__button" type="submit">
             Найти
           </button>

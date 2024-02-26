@@ -22,6 +22,10 @@ function Profile({ name, email }) {
                 className="profile__input"
                 value={name}
                 disabled={!isEditing}
+                placeholder="Введите ваше имя"
+                required
+                minLength="2"
+                maxLength="30"
               ></input>
             </div>
             <div className="profile__input-box">
@@ -30,6 +34,10 @@ function Profile({ name, email }) {
                 className="profile__input"
                 value={email}
                 disabled={!isEditing}
+                placeholder="Введите ваш email"
+                required
+                minLength="2"
+                maxLength="30"
               ></input>
             </div>
           </form>

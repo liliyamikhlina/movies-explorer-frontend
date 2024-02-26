@@ -16,15 +16,23 @@ function AboutProject() {
           На&nbsp;выполнение диплома ушло 5&nbsp;недель
         </p>
         <p className="aboutpr__paragraph aboutpr__paragraph_small">
-        У&nbsp;каждого этапа был мягкий и&nbsp;жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.
+          У&nbsp;каждого этапа был мягкий и&nbsp;жёсткий дедлайн, которые нужно
+          было соблюдать, чтобы успешно защититься.
         </p>
       </div>
-      <div className="aboutpr__table">
-        <div className="aboutpr__cell aboutpr__cell_green">1 неделя</div>
-        <div className="aboutpr__cell aboutpr__cell_grey">4 недели</div>
-        <div className="aboutpr__cell">Back-end</div>
-        <div className="aboutpr__cell">Front-end</div>
-      </div>
+      <table className="aboutpr__table">
+        <tbody>
+          <tr className="aboutpr__table-row">
+            <td className="aboutpr__table-cell aboutpr__table-cell_green">1 неделя</td>
+            <td className="aboutpr__table-cell aboutpr__table-cell_grey">4 недели</td>
+          </tr>
+          <tr className="aboutpr__table-row">
+            <td className="aboutpr__table-cell">Back-end</td>
+            <td className="aboutpr__table-cell">Front-end</td>
+          </tr>
+        </tbody>
+      </table>
+
     </section>
   );
 }

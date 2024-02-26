@@ -131,7 +131,20 @@
 .header__account-link {
   margin: 0;
   padding: 0;
-  display: block;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  text-align: left;
+  display: flex;
+  display: row;
+  align-items: center;
+  opacity: 1;
+}
+
+.header__account-link:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -141,17 +154,18 @@
 }
 
 .header__account-pic {
-  margin: 0;
+  margin: 0 0 0 7px;
   padding: 0;
-  opacity: 1;
-  width: 100px;
-  height: 32px;
-  object-fit: cover;
+  padding: 7px;
+  border-radius: 50%;
+  background-color: #313131;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
 }
 
-.header__account-pic:hover {
-  opacity: 0.8;
-  cursor: pointer;
+.header__account-pic_blue {
+  background-color: #0f4157;
 }
 
 .header__sidebar-button {
