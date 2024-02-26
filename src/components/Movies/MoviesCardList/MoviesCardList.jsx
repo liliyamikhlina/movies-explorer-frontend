@@ -4,7 +4,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList() {
   return (
     <section className="cards">
-      <article className="cards__box">
+      <ul className="cards__box">
         <MoviesCard
           link={
             "https://s3-alpha-sig.figma.com/img/71a2/3794/3bfd6b9af4141d2ee15e36a186b073a7?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fuUYysrW-KecsNVe4gaaXvWG753UwzqYwYJIOjAm~Mh5SmOOg~nIMKn-STy7jhk4HGtVthcvi9Rpy8sUpZcOaq6bOhz0~fd0JJS6Ej8VvD-N7oz17F~T0fdV02h0s39UNxI2Uu0CW8wPuCU5RQjCQBI7eYCKQxS8BCNqLGK2PYrYjXAxymb4yZRuOD3zE0CYqXDYssesYsht5riv1vUYelVMA44dpkrf5VhtkLF5gbTDRJrvpVcf1HNH~OPEPgTnncg5O4FWbqRk1wx5j0SOaN73AEUo7R0zvfEVvSsG9igyURmVP9ujFzWtfrgt71ciJ~wjUuvEXrneRa1v-LeO1g__"
@@ -132,7 +132,7 @@ function MoviesCardList() {
           name={"Зона"}
           duration={"1ч 3м"}
         />
-      </article>
+      </ul>
       <button className="cards__more">Ещё</button>
     </section>
   );

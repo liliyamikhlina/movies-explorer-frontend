@@ -45,10 +45,10 @@
 
 @media (max-width: 430px) {
   .profile__box {
-    margin: 0 30px;
     width: 260px;
   }
 }
+
 
 .profile__input-box {
   margin: 17px 0 0;

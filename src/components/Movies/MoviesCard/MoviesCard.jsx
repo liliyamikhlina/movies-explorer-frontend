@@ -9,17 +9,17 @@ function MoviesCard({ name, link, duration }) {
   };
 
   return (
-    <section className="card">
+    <li className="card">
       <img alt="Кадр из фильма" className="card__photo" src={link}></img>
       <div className="card__box">
-        <h4 className="card__title">{name}</h4>
+        <h2 className="card__title">{name}</h2>
         <button
           className={`card__like ${isLiked ? "card__like_active" : ""}`}
           onClick={handleLike}
         ></button>
       </div>
       <p className="card__duration">{duration}</p>
-    </section>
+    </li>
   );
 }
 

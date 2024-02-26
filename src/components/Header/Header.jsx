@@ -10,8 +10,8 @@ function Header({ main, isLoggedIn }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleSidebarButtonClick = () => {
-      setIsSidebarOpen(!isSidebarOpen);
-  }
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   return (
     <header className={`header ${main ? "header_blue" : ""}`}>
@@ -30,19 +30,22 @@ function Header({ main, isLoggedIn }) {
             </Link>
           </nav>
           <Link to="/profile" className="header__account-link">
-              <img
-                className="header__account-pic"
-                alt="Аккаунт"
-                src={main ? account_blue : account}
-              ></img>
-            </Link>
-            <button className="header__sidebar-button"
-              onClick={handleSidebarButtonClick}
-            ></button>
+            <img
+              className="header__account-pic"
+              alt="Аккаунт"
+              src={main ? account_blue : account}
+            ></img>
+          </Link>
+          <button
+            className="header__sidebar-button"
+            onClick={handleSidebarButtonClick}
+          ></button>
         </>
       )}
 
-      {isLoggedIn && isSidebarOpen && (<Sidebar isOpen={isSidebarOpen} onClose={handleSidebarButtonClick} />)}
+      {isLoggedIn && isSidebarOpen && (
+        <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarButtonClick} />
+      )}
 
       {!isLoggedIn && (
         <nav className="header__box">
@@ -50,7 +53,7 @@ function Header({ main, isLoggedIn }) {
             Регистрация
           </Link>
           <Link to="/signin">
-            <button className="header__signin">Войти</button>
+            <div className="header__signin">Войти</div>
           </Link>
         </nav>
       )}

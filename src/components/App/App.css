@@ -1,11 +1,8 @@
 .app {
-  margin: 0;
+  margin: 0 auto;
   text-align: center;
   background-color: #202020;
   max-width: 1280px;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
 }
 
 @media (max-width: 767px) {

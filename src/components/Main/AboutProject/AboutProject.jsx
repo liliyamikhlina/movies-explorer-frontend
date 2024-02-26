@@ -3,7 +3,7 @@ import "./AboutProject.css";
 function AboutProject() {
   return (
     <section className="aboutpr">
-      <h2 className="title_h2">О проекте</h2>
+      <h2 className="aboutpr__title">О проекте</h2>
       <div className="aboutpr__box">
         <p className="aboutpr__paragraph aboutpr__paragraph_big">
           Дипломный проект включал 5&nbsp;этапов

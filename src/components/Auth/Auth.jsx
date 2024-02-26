@@ -9,7 +9,7 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
         <Link to="/" className="auth__logo-link">
           <img alt="Лого" src={logo} className="auth__logo" />
         </Link>
-        <h2 className="auth__title">{title}</h2>
+        <h1 className="auth__title">{title}</h1>
         <form className="auth__form">
           {register && (
             <div className="auth__input-box">

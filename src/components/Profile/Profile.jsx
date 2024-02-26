@@ -12,8 +12,8 @@ function Profile({ name, email }) {
   return (
     <section className="profile">
       <div className="profile__box">
-        <h2 className="profile__title">Привет, {name}!</h2>
-        <form>
+        <h1 className="profile__title">Привет, {name}!</h1>
+        <form method="get">
           <div className="profile__input-box">
             <label className="profile__input-label">Имя</label>
             <input className="profile__input" value={name} disabled={!isEditing}></input>

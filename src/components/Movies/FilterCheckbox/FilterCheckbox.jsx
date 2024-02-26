@@ -9,14 +9,17 @@ function FilterCheckbox() {
   };
 
   return (
-    <div className="checkbox__box">
-      <button
-        className={`checkbox ${
-          checkboxActive ? "" : "checkbox_inactive"
-        }`}
+    <div className="search__checkbox-bg">
+      <input
+        className="search__checkbox-input"
+        type="checkbox"
+        value="isShortMovies"
+      />
+      <div
+        className={`search__checkbox ${checkboxActive ? "" : "search__checkbox_inactive"}`}
         onClick={handleCheckboxToggle}
-      ></button>
-      <p className="checkbox__title">Короткометражки</p>
+      ></div>
+      <label className="search__checkbox-label">Короткометражки</label>
     </div>
   );
 }

@@ -4,13 +4,14 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 // import Preloader from "./Preloader/Preloader"
 
 function Moovies() {
-    return (
+  return (
+    <main>
       <section className="movies">
         <SearchForm />
         <MoviesCardList />
       </section>
-    );
-  }
-  
-  export default Moovies;
-  
+    </main>
+  );
+}
+
+export default Moovies;
