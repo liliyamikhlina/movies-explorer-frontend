@@ -1,0 +1,12 @@
+.app {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #202020;
+  max-width: 1280px;
+}
+
+@media (max-width: 767px) {
+  .app {
+    max-width: 100vw;
+  }
+}
