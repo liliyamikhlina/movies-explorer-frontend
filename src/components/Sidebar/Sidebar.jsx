@@ -8,8 +8,8 @@ function Sidebar({ isOpen, onClose }) {
   const currentPage = location.pathname;
 
   return (
-    <section className={`sidebar__bg ${isOpen ? "sidebar__bg_active" : ""}`}>
-      <div className="sidebar">
+    <section className={`sidebar ${isOpen ? "sidebar_active" : ""}`}>
+      <div className="sidebar__box">
         <button
           type="button"
           className="sidebar__close-button"

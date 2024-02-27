@@ -1,4 +1,4 @@
-.sidebar__bg {
+.sidebar {
   margin: 0;
   padding: 0;
   position: fixed;
@@ -9,7 +9,7 @@
   display: none;
 }
 
-.sidebar__bg::after {
+.sidebar::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,11 +20,11 @@
   opacity: 0.3;
 }
 
-.sidebar__bg_active {
+.sidebar_active {
   display: block;
 }
 
-.sidebar {
+.sidebar__box {
   width: 520px;
   height: 100vh;
   position: fixed;
@@ -41,7 +41,7 @@
 }
 
 @media (max-width: 520px) {
-  .sidebar {
+  .sidebar__box {
     width: 100vw;
   }
 }

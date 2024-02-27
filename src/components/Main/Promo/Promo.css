@@ -12,13 +12,6 @@
   }
 }
 
-@media (max-width: 680px) {
-  .promo {
-    object-fit: fill;
-    overflow: hidden;
-  }
-}
-
 @media (max-width: 430px) {
   .promo {
     padding: 183px 0 40px;

@@ -21,6 +21,8 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                   className="auth__input"
                   placeholder="Введите ваше имя"
                   required
+                  minLength="2"
+                  maxLength="30"
                 ></input>
               </div>
             )}
