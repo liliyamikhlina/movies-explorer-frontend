@@ -1,9 +1,64 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Auth.css";
 import "../Main/Main.css";
+import mainApi from "../../utils/MainApi";
 
-function Auth({ register, title, button, text, linkTo, linkText }) {
+function Auth({ title, button, text, linkTo, linkText }) {
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const register = location.pathname === "/signup";
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    mainApi
+      .loginUser(email, password)
+      .then((data) => {
+        if (data.token) {
+          setEmail("");
+          setPassword("");
+        }
+        navigate("/movies", { replace: true });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !email || !password) {
+      return;
+    }
+    mainApi
+      .registerUser(name, email, password)
+      .then(() => {
+        //Даем обратную связь: успех или фейл
+        navigate("/signin");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <main className="main">
       <section className="auth">
@@ -12,7 +67,10 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
             <img alt="Лого" src={logo} className="auth__logo" />
           </Link>
           <h1 className="auth__title">{title}</h1>
-          <form className="auth__form">
+          <form
+            className="auth__form"
+            onSubmit={register ? handleRegisterSubmit : handleLoginSubmit}
+          >
             {register && (
               <div className="auth__input-box">
                 <label className="auth__input-label">Имя</label>
@@ -23,6 +81,8 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                   required
                   minLength="2"
                   maxLength="30"
+                  value={name}
+                  onChange={handleNameChange}
                 ></input>
               </div>
             )}
@@ -35,6 +95,8 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                 required
                 minLength="2"
                 maxLength="30"
+                value={email}
+                onChange={handleEmailChange}
               ></input>
             </div>
             <div className="auth__input-box">
@@ -46,6 +108,8 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                 required
                 minLength="2"
                 maxLength="30"
+                value={password}
+                onChange={handlePasswordChange}
               ></input>
             </div>
             <span className="auth__input-error auth__input-error_inactive">
