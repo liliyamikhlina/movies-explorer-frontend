@@ -5,10 +5,12 @@ import "./Profile.css";
 import "../Main/Main.css";
 
 function Profile({ onUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const currentUser = useContext(CurrentUserContext);
+
+  console.log(currentUser);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -70,12 +72,14 @@ function Profile({ onUpdateUser }) {
                 onChange={handleEmailChange}
               ></input>
             </div>
-            <button type="submit"></button>
+            <button type="submit" className="profile__submit">Сохранить</button>
           </form>
           <p className="profile__edit" onClick={handleEditClick}>
             Редактировать
           </p>
-          <Link to="/" className="profile__signout">
+          <Link to="/" 
+          //Тут еще нужно jwt из LS удалить
+          className="profile__signout">
             Выйти из аккаунта
           </Link>
         </div>

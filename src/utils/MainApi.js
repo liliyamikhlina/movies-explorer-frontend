@@ -2,8 +2,23 @@ function MainApi(data) {
   const _baseUrl = data.baseUrl;
 
   const checkResponseStatus = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
   };
+   
+    // const headers = res.headers.get("content-type");
+    // let result;
+    // if (headers.split("; ")[0] === 'text/html') {
+    //   result = await res.text();
+    // } else {
+    //   result = await res.json();
+    // }
+    // console.log(result);
+    // return result
+  // };
 
   const getCurrentUser = () => {
     const token = localStorage.getItem("jwt");
@@ -96,7 +111,7 @@ function MainApi(data) {
         return checkResponseStatus(res);
       })
       .then((data) => {
-        localStorage.setItem("jwt", data.token);
+        localStorage.setItem("jwt", data);
         return data;
       });
   };

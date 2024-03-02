@@ -21,7 +21,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
 
-  const handleUpdateUser = (userInfo) => {
+  const handleUserUpdate = (userInfo) => {
     mainApi
       .updateUser(userInfo)
       .then((updatedUserInfo) => {
@@ -30,6 +30,7 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  
   // const handleMovieLike = (movie) => {
   //   mainApi
   //   .addSavedMovie(movie)
@@ -57,8 +58,9 @@ function App() {
     if (token) {
       mainApi
         .checkToken(token)
-        .then((res) => {
+        .then((userInfo) => {
           setIsLoggedIn(true);
+          setCurrentUser(userInfo);
           navigate("/movies");
         })
         .catch((err) => {
@@ -70,7 +72,7 @@ function App() {
 
   useEffect(() => {
     handleTockenCheck();
-  }, [navigate]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -115,7 +117,7 @@ function App() {
               <>
                 <Header main={false} isLoggedIn={true} />
                 <Profile
-                // onUpdateUser={handleUpdateUser}
+                  onUpdateUser={handleUserUpdate}
                 />
               </>
             }

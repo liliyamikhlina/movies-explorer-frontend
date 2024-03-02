@@ -6,7 +6,6 @@ import "../Main/Main.css";
 import mainApi from "../../utils/MainApi";
 
 function Auth({ title, button, text, linkTo, linkText }) {
-  
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -36,6 +35,8 @@ function Auth({ title, button, text, linkTo, linkText }) {
     mainApi
       .loginUser(email, password)
       .then((data) => {
+        console.log('Token after login');
+        console.log(data);
         if (data.token) {
           setEmail("");
           setPassword("");
@@ -48,14 +49,23 @@ function Auth({ title, button, text, linkTo, linkText }) {
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
+      alert('Не хватает чего-то')
       return;
     }
     mainApi
       .registerUser(name, email, password)
-      .then(() => {
-        //Даем обратную связь: успех или фейл
-        navigate("/signin");
-      })
+      .then(
+        (res) => {
+          console.log("Responce after register");
+          console.log(res);
+          //Даем обратную связь: успех или фейл
+          navigate("/signin");
+        },
+        (error) => {
+          console.log("Bad Responce after register (reject)");
+          console.log(error);
+        }
+      )
       .catch((err) => console.log(err));
   };
 

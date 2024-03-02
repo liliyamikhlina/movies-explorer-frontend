@@ -2,10 +2,10 @@ import { useState } from "react";
 import "./MoviesCard.css";
 
 function MoviesCard({ name, link, duration }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const handleLike = () => {
-    setIsLiked(!isLiked);
+    setIsSaved(!isSaved);
   };
 
   return (
@@ -15,7 +15,7 @@ function MoviesCard({ name, link, duration }) {
         <h2 className="card__title">{name}</h2>
         <button
           type="button"
-          className={`card__like ${isLiked ? "card__like_active" : ""}`}
+          className={`card__like ${isSaved ? "card__like_active" : ""}`}
           onClick={handleLike}
         ></button>
       </div>
