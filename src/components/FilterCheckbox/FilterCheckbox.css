@@ -23,7 +23,7 @@
 }
 
 .search__checkbox {
-  background-image: url("../../../images/smalltumb.svg");
+  background-image: url("../../images/smalltumb.svg");
   background-size: cover;
   border: none;
   width: 36px;
@@ -46,7 +46,7 @@
 }
 
 .search__checkbox_inactive {
-  background-image: url("../../../images/smalltumboff.svg");
+  background-image: url("../../images/smalltumboff.svg");
 }
 
 .search__checkbox:hover {

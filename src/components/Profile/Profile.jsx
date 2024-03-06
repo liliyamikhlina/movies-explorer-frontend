@@ -10,8 +10,6 @@ function Profile({ onUpdateUser }) {
   const [email, setEmail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  console.log(currentUser);
-
   const handleEditClick = () => {
     setIsEditing(true);
   };

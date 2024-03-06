@@ -5,6 +5,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
+import MoviesTemplate from "../MoviesTemplate/MoviesTemplate";
 import SavedMoovies from "../SavedMoovies/SavedMoovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
@@ -19,18 +20,21 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
 
   const handleUserUpdate = (userInfo) => {
+    setIsLoading(true);
     mainApi
       .updateUser(userInfo)
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
-  
   // const handleMovieLike = (movie) => {
   //   mainApi
   //   .addSavedMovie(movie)
@@ -74,6 +78,23 @@ function App() {
     handleTockenCheck();
   }, []);
 
+  useEffect(() => {
+    if (currentUser) {
+      setIsLoading(true)
+      Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+        .then(([movies, savedMovies]) => {
+          setMovies(movies);
+          setSavedMovies(savedMovies);
+        })
+        .catch((err) =>
+          console.log(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          )
+        )
+        .finally(() => setIsLoading(false));
+    }
+  }, [currentUser]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -82,7 +103,7 @@ function App() {
             path="/"
             element={
               <>
-                <Header main={true} isLoggedIn={isLoggedIn} />
+                <Header isLoggedIn={isLoggedIn} />
                 <Main />
                 <Footer />
               </>
@@ -93,8 +114,8 @@ function App() {
             path="/movies"
             element={
               <>
-                <Header main={false} isLoggedIn={true} />
-                <Movies />
+                <Header isLoggedIn={isLoggedIn} />
+                <MoviesTemplate moviesList={movies} isLoading={isLoading}/>
                 <Footer />
               </>
             }
@@ -104,8 +125,8 @@ function App() {
             path="/saved-movies"
             element={
               <>
-                <Header main={false} isLoggedIn={true} />
-                <SavedMoovies />
+                <Header isLoggedIn={isLoggedIn} />
+                <MoviesTemplate moviesList={savedMovies} isLoading={isLoading}/>
                 <Footer />
               </>
             }
@@ -115,10 +136,8 @@ function App() {
             path="/profile"
             element={
               <>
-                <Header main={false} isLoggedIn={true} />
-                <Profile
-                  onUpdateUser={handleUserUpdate}
-                />
+                <Header isLoggedIn={isLoggedIn} />
+                <Profile onUpdateUser={handleUserUpdate} />
               </>
             }
           ></Route>

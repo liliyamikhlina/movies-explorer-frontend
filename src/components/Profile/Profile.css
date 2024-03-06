@@ -83,7 +83,7 @@
 }
 
 .profile__edit {
-  margin: 220px 0 16px;
+  margin: 16px 0;
   padding: 0;
   font-size: 13px;
   font-weight: 400;
@@ -98,15 +98,8 @@
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .profile__edit {
-    margin-top: 210px;
-  }
-}
-
 @media (max-width: 430px) {
   .profile__edit {
-    margin-top: 379px;
     font-size: 12px;
     line-height: 14.52px;
   }
@@ -137,7 +130,7 @@
 }
 
 .profile__submit {
-  margin: 0;
+  margin: 159px 0 0;
   padding: 0;
   width: 100%;
   height: 45px;
@@ -150,8 +143,15 @@
   line-height: 16.94px;
 }
 
+@media (max-width: 768px) {
+  .profile__submit {
+    margin-top: 149px;
+  }
+}
+
 @media (max-width: 430px) {
   .profile__submit {
+    margin-top: 318px;
     font-size: 12px;
     font-weight: 400;
     line-height: 14.52px;

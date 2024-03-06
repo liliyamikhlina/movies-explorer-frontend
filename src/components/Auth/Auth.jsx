@@ -56,13 +56,10 @@ function Auth({ title, button, text, linkTo, linkText }) {
       .registerUser(name, email, password)
       .then(
         (res) => {
-          console.log("Responce after register");
-          console.log(res);
           //Даем обратную связь: успех или фейл
           navigate("/signin");
         },
         (error) => {
-          console.log("Bad Responce after register (reject)");
           console.log(error);
         }
       )
