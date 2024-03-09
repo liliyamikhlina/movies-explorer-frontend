@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList({ movies, searchWasDone, isLoading }) {
+function MoviesCardList({
+  movies,
+  savedMovies,
+  searchWasDone,
+  isLoading,
+  onLike,
+  onDelete
+}) {
   const [nothingIsFound, setNothingIsFound] = useState(false);
   const [cardsToShow, setCardsToShow] = useState(0);
   const [extraCards, setExtraCards] = useState(0);
+
+  const location = useLocation();
+  const currentPage = location.pathname;
 
   const getCardsAmount = () => {
     if (window.innerWidth >= 1024) {
@@ -48,17 +59,31 @@ function MoviesCardList({ movies, searchWasDone, isLoading }) {
         <Preloader />
       ) : (
         <>
-          <ul className="cards__box">
-            {movies.slice(0, cardsToShow).map((movie) => (
-              <MoviesCard
-                key={movie.id}
-                link={`https://api.nomoreparties.co${movie.image.url}`}
-                name={movie.nameRU}
-                duration={`${movie.duration} м` ?? 0}
-                trailerLink={movie.trailerLink}
-              />
-            ))}
-          </ul>
+          {currentPage === "/saved-movies" ? (
+            <ul className="cards__box">
+              {savedMovies.map((savedMovie) => (
+                <MoviesCard
+                  movie={savedMovie}
+                  key={savedMovie.movieId}
+                  onLike={onLike}
+                  onDelete={onDelete}
+                  savedMovies={savedMovies}
+                />
+              ))}
+            </ul>
+          ) : (
+            <ul className="cards__box">
+              {movies.slice(0, cardsToShow).map((movie) => (
+                <MoviesCard
+                  movie={movie}
+                  key={movie.id}
+                  onLike={onLike}
+                  onDelete={onDelete}
+                  savedMovies={savedMovies}
+                />
+              ))}
+            </ul>
+          )}
           {nothingIsFound && (
             <span className="cards__notfound">Ничего не найдено</span>
           )}

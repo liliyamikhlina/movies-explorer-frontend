@@ -1,21 +1,25 @@
-import { useState } from "react";
 import MoviesTemplate from "../MoviesTemplate/MoviesTemplate";
+import { useEffect, useState } from "react";
 
-function Movies({ moviesList, isLoading }) {
+function SavedMovies({ moviesList }) {
   const [searchWasDone, setSearchWasDone] = useState(false);
 
   const handleSearchDone = (value) => {
     setSearchWasDone(value);
-  };
+  }
 
+  useEffect(() => {
+    setSearchWasDone(true);
+  }, []);
+  
   return (
     <MoviesTemplate
       moviesList={moviesList}
-      isLoading={isLoading}
+      isLoading={false}
       searchWasDone={searchWasDone}
       onSearchDone={handleSearchDone}
     />
   );
 }
 
-export default Movies;
+export default SavedMovies;

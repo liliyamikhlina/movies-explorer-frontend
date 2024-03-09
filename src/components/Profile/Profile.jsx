@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 import "../Main/Main.css";
 
-function Profile({ onUpdateUser }) {
+function Profile({ onUpdateUser, onSignOut }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,20 +16,20 @@ function Profile({ onUpdateUser }) {
 
   const handleNameChange = (e) => {
     setName(e.target.value);
-  }
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateUser({
       name,
-      email
+      email,
     });
     setIsEditing(false);
-  }
+  };
 
   useEffect(() => {
     setName(currentUser.name);
@@ -70,16 +70,20 @@ function Profile({ onUpdateUser }) {
                 onChange={handleEmailChange}
               ></input>
             </div>
-            <button type="submit" className="profile__submit">Сохранить</button>
+            <button type="submit" className="profile__submit">
+              Сохранить
+            </button>
           </form>
           <p className="profile__edit" onClick={handleEditClick}>
             Редактировать
           </p>
-          <Link to="/" 
-          //Тут еще нужно jwt из LS удалить
-          className="profile__signout">
+          <p
+            //Тут еще нужно jwt из LS удалить
+            className="profile__signout"
+            onClick={onSignOut}
+          >
             Выйти из аккаунта
-          </Link>
+          </p>
         </div>
       </section>
     </main>

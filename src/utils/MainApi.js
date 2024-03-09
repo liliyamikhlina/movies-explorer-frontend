@@ -63,17 +63,16 @@ function MainApi(data) {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...movie,
-      }),
+      body: JSON.stringify(movie),
     }).then((res) => {
       return checkResponseStatus(res);
     });
   };
 
-  const deleteSavedMovie = (movieId) => {
+  const deleteSavedMovie = (id) => {
+    console.log(id);
     const token = localStorage.getItem("jwt");
-    return fetch(`${_baseUrl}/movies/${movieId}`, {
+    return fetch(`${_baseUrl}/movies/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
