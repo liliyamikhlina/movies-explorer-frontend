@@ -10,7 +10,7 @@ function MoviesCardList({
   searchWasDone,
   isLoading,
   onLike,
-  onDelete
+  onDelete,
 }) {
   const [nothingIsFound, setNothingIsFound] = useState(false);
   const [cardsToShow, setCardsToShow] = useState(0);
@@ -42,6 +42,20 @@ function MoviesCardList({
 
   useEffect(() => {
     getCardsAmount();
+
+    const handleResize = () => {
+      let resizeTimer;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(getCardsAmount, 300);
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
   }, []);
 
   useEffect(() => {

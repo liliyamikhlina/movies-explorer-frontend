@@ -3,7 +3,7 @@ import "./SearchForm.css";
 import search from "../../images/search.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ setSearchResults, handleClick }) {
+function SearchForm({ setSearchResults, handleClick, isShortFilmsChecked, handleShortFilmsCheckbox }) {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -42,7 +42,7 @@ function SearchForm({ setSearchResults, handleClick }) {
         </div>
       </div>
       {errorMessage && <p className="search__error">{errorMessage}</p>}
-      <FilterCheckbox />
+      <FilterCheckbox isShortFilmsChecked={isShortFilmsChecked} handleShortFilmsCheckbox={handleShortFilmsCheckbox} />
     </form>
   );
 }

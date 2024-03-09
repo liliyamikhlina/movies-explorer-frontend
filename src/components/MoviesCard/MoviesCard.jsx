@@ -49,7 +49,7 @@ function MoviesCard({ movie, onLike, onDelete, savedMovies}) {
         <img
           alt={movie.nameRU}
           className="card__photo"
-          src={`https://api.nomoreparties.co${movie.image.url}`}
+          src={currentPage === "/saved-movies" ? movie.image : `https://api.nomoreparties.co${movie.image.url}`}
         ></img>
       </a>
       <div className="card__box">
