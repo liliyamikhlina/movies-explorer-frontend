@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "../Main/Main.css";
@@ -11,12 +12,28 @@ function MoviesTemplate({
   searchWasDone,
   onSearchDone,
 }) {
+
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortFilmsChecked, setIsShortFilmsChecked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const location = useLocation();
+  const currentPage = location.pathname;
 
   useEffect(() => {
-    setMovies(moviesList);
+    if (currentPage === "/movies") {
+      const searchData = localStorage.getItem("searchData");
+      if (searchData) {
+        const { query, isShortFilms, foundMovies } = JSON.parse(searchData);
+        setSearchQuery(query);
+        setIsShortFilmsChecked(isShortFilms);
+        setMovies(foundMovies);
+        handleSearchSubmit(query, isShortFilms);
+      } else {
+        setMovies(moviesList);
+      }
+    }
   }, [moviesList]);
 
   useEffect(() => {
@@ -26,26 +43,43 @@ function MoviesTemplate({
         setSavedMovies(smovies);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [moviesList]);
 
-  const handleSearchSubmit = (inputValue) => {
+  const handleSearchSubmit = (inputValue, isShortFilms) => {
     const foundMovies = moviesList.filter(
       (result) =>
         result.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
         result.nameRU.toLowerCase().includes(inputValue.toLowerCase())
     );
 
-    if (isShortFilmsChecked) {
+    let finalMovies;
+    if (isShortFilms) {
       const shortFilms = foundMovies.filter((movie) => movie.duration <= 40);
-      setMovies(shortFilms);
+      finalMovies = shortFilms;
     } else {
-      setMovies(foundMovies);
+      finalMovies = foundMovies;
+    }
+
+    currentPage === "/movies" ? setMovies(finalMovies) : setSavedMovies(finalMovies);
+    setSearchQuery(inputValue);
+    setIsShortFilmsChecked(isShortFilms);
+
+    if (currentPage === "/movies") {
+      const searchData = {
+        query: inputValue,
+        isShortFilms,
+        foundMovies: finalMovies,
+      };
+
+      localStorage.setItem("searchData", JSON.stringify(searchData));
     }
     onSearchDone(true);
   };
 
   const handleShortFilmsCheckbox = () => {
-    setIsShortFilmsChecked(!isShortFilmsChecked);
+    const isShortFilms = !isShortFilmsChecked;
+    setIsShortFilmsChecked(isShortFilms);
+    handleSearchSubmit(searchQuery, isShortFilms);
   };
 
   const handleMovieLike = (movie, isLiked) => {
@@ -111,6 +145,7 @@ function MoviesTemplate({
           handleClick={handleSearchSubmit}
           handleShortFilmsCheckbox={handleShortFilmsCheckbox}
           isShortFilmsChecked={isShortFilmsChecked}
+          searchQuery={searchQuery}
         />
         {searchWasDone && (
           <MoviesCardList

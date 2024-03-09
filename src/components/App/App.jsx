@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -13,7 +13,7 @@ import NotFound from "../NotFound/NotFound";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import moviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
-// import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const navigate = useNavigate();
@@ -23,6 +23,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+
+  const location = useLocation();
+  const currentPage = location.pathname;
 
   const handleUserUpdate = (userInfo) => {
     setIsLoading(true);
@@ -38,8 +41,9 @@ function App() {
   const handleSignOut = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("jwt");
-    navigate('/');
-  }
+    localStorage.removeItem("searchData");
+    navigate("/");
+  };
 
   const handleTockenCheck = () => {
     const token = localStorage.getItem("jwt");
@@ -57,7 +61,6 @@ function App() {
         });
     }
   };
-  
 
   useEffect(() => {
     handleTockenCheck();
@@ -65,7 +68,7 @@ function App() {
 
   useEffect(() => {
     if (currentUser) {
-      setIsLoading(true)
+      setIsLoading(true);
       Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
         .then(([movies, savedMovies]) => {
           setMovies(movies);
@@ -83,46 +86,52 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-      <Header isLoggedIn={isLoggedIn} />
+        {currentPage === "/" ||
+        currentPage === "/movies" ||
+        currentPage === "/saved-movies" ||
+        currentPage === "/profile" ? (
+          <Header isLoggedIn={isLoggedIn} />
+        ) : (
+          ""
+        )}
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Main />
-                <Footer />
-              </>
-            }
-          ></Route>
+          <Route path="/" element={<Main />}></Route>
 
           <Route
             path="/movies"
             element={
-              <>
-                <Movies moviesList={movies} isLoading={isLoading} />
-                <Footer />
-              </>
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                moviesList={movies}
+                isLoading={isLoading}
+                element={Movies}
+              />
             }
-          ></Route>
+          />
 
           <Route
             path="/saved-movies"
             element={
-              <>
-                <SavedMovies moviesList={savedMovies} isLoading={isLoading}/>
-                <Footer />
-              </>
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                moviesList={savedMovies}
+                isLoading={isLoading}
+                element={SavedMovies}
+              />
             }
-          ></Route>
+          />
 
           <Route
             path="/profile"
             element={
-              <>
-                <Profile onUpdateUser={handleUserUpdate} onSignOut={handleSignOut} />
-              </>
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                onUpdateUser={handleUserUpdate}
+                onSignOut={handleSignOut}
+                element={Profile}
+              />
             }
-          ></Route>
+          />
 
           <Route path="/signin" element={<Login />}></Route>
 
@@ -130,6 +139,14 @@ function App() {
 
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
+
+        {currentPage === "/" ||
+        currentPage === "/movies" ||
+        currentPage === "/saved-movies" ? (
+          <Footer />
+        ) : (
+          ""
+        )}
       </div>
     </CurrentUserContext.Provider>
   );

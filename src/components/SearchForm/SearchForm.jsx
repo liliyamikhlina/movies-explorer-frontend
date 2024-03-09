@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./SearchForm.css";
 import search from "../../images/search.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ setSearchResults, handleClick, isShortFilmsChecked, handleShortFilmsCheckbox }) {
-  const [inputValue, setInputValue] = useState("");
+function SearchForm({
+  handleClick,
+  isShortFilmsChecked,
+  handleShortFilmsCheckbox,
+  searchQuery,
+}) {
+  const [inputValue, setInputValue] = useState(searchQuery);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const location = useLocation();
+  const currentPage = location.pathname;
+
+  useEffect(() => {
+    if (currentPage === "/movies") {
+    const searchData = localStorage.getItem("searchData");
+    if (searchData) {
+      setInputValue(JSON.parse(searchData).query);
+    }
+  }
+  }, []);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -18,7 +36,7 @@ function SearchForm({ setSearchResults, handleClick, isShortFilmsChecked, handle
       setErrorMessage("Нужно ввести ключевое слово");
       return;
     }
-    handleClick(inputValue);
+    handleClick(inputValue, isShortFilmsChecked);
   };
 
   return (
@@ -33,16 +51,16 @@ function SearchForm({ setSearchResults, handleClick, isShortFilmsChecked, handle
             value={inputValue}
             onChange={handleInputChange}
           ></input>
-          <button
-            className="search__button"
-            type="submit"
-          >
+          <button className="search__button" type="submit">
             Найти
           </button>
         </div>
       </div>
       {errorMessage && <p className="search__error">{errorMessage}</p>}
-      <FilterCheckbox isShortFilmsChecked={isShortFilmsChecked} handleShortFilmsCheckbox={handleShortFilmsCheckbox} />
+      <FilterCheckbox
+        isShortFilmsChecked={isShortFilmsChecked}
+        handleShortFilmsCheckbox={handleShortFilmsCheckbox}
+      />
     </form>
   );
 }

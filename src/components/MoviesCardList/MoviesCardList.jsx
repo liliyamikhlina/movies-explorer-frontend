@@ -59,13 +59,15 @@ function MoviesCardList({
   }, []);
 
   useEffect(() => {
-    if (searchWasDone && movies.length === 0) {
+    let currentArray;
+    currentPage === "/movies" ? currentArray = movies : currentArray = savedMovies;
+    if (searchWasDone && currentArray.length === 0 ) {
       setNothingIsFound(true);
     } else {
       setNothingIsFound(false);
       getCardsAmount();
     }
-  }, [searchWasDone, movies]);
+  }, [searchWasDone, movies, savedMovies]);
 
   return (
     <section className="cards">

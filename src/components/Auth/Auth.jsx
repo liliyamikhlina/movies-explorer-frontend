@@ -17,6 +17,7 @@ function Auth({ title, button, text, linkTo, linkText }) {
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+    // const isValidInput = /^[A-Za-zА-Яа-яЁё\s-]*$/;
   };
 
   const handleEmailChange = (e) => {
