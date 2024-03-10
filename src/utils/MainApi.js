@@ -140,7 +140,7 @@ function MainApi(data) {
 }
 
 const mainApi = new MainApi({
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://api.liliya.mikh.nomoredomainswork.ru",
 });
 
 export default mainApi;
