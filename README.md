@@ -2,4 +2,4 @@
 
 IP 158.160.11.226
 
-Frontend https://liliya.mikhlina.nomoredomainsmonster.ru
+Frontend https://liliya.mikh.nomoredomainswork.ru
