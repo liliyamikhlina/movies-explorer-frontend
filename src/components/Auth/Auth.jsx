@@ -5,7 +5,7 @@ import "./Auth.css";
 import "../Main/Main.css";
 import mainApi from "../../utils/MainApi";
 
-function Auth({ title, button, text, linkTo, linkText }) {
+function Auth({ title, button, text, linkTo, linkText, tokenError }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,19 +13,48 @@ function Auth({ title, button, text, linkTo, linkText }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+
   const register = location.pathname === "/signup";
 
   const handleNameChange = (e) => {
+    const nameRegex = /^[A-Za-zА-Яа-яЁё\s-]*$/;
+    const isValidInput = nameRegex.test(e.target.value);
     setName(e.target.value);
-    // const isValidInput = /^[A-Za-zА-Яа-яЁё\s-]*$/;
+    if (!e.target.value) {
+      setNameError("Поле должно быть заполнено");
+    } else if (!isValidInput) {
+      setNameError(
+        "Имя должно содержать только латинские или кириллические символы, пробелы или дефисы"
+      );
+    } else {
+      setNameError("");
+    }
   };
 
   const handleEmailChange = (e) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(e.target.value);
     setEmail(e.target.value);
+    if (!e.target.value) {
+      setEmailError("Поле должно быть заполнено");
+    } else if (!isValidEmail) {
+      setEmailError("Введите корректный email");
+    } else {
+      setEmailError("");
+    }
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    if (!e.target.value) {
+      setPasswordError("Поле должно быть заполнено");
+    } else {
+      setPasswordError("");
+    }
   };
 
   const handleLoginSubmit = (e) => {
@@ -36,36 +65,57 @@ function Auth({ title, button, text, linkTo, linkText }) {
     mainApi
       .loginUser(email, password)
       .then((data) => {
-        console.log('Token after login');
-        console.log(data);
         if (data.token) {
           setEmail("");
           setPassword("");
         }
         navigate("/movies", { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setGeneralError("Вы ввели неправильный логин или пароль.");
+        } else if (tokenError) {
+          setGeneralError(tokenError);
+        } else {
+          setGeneralError(
+            "При авторизации произошла ошибка. Пожалуйста, попробуйте еще раз."
+          );
+        }
+      });
   };
-
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
+    setGeneralError("");
     if (!name || !email || !password) {
-      alert('Не хватает чего-то')
       return;
     }
     mainApi
       .registerUser(name, email, password)
       .then(
         (res) => {
-          //Даем обратную связь: успех или фейл
           navigate("/signin");
         },
         (error) => {
-          console.log(error);
+          if (error.response && error.response.status === 409) {
+            setGeneralError("Пользователь с таким email уже существует.");
+          } else {
+            setGeneralError(
+              "При регистрации пользователя произошла ошибка. Пожалуйста, попробуйте еще раз."
+            );
+          }
         }
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setGeneralError(
+          "При регистрации пользователя произошла ошибка. Пожалуйста, попробуйте еще раз."
+        );
+        console.log(err);
+      });
   };
+
+  const isFormValid = register
+    ? !nameError && !emailError && !passwordError && name && email && password
+    : !emailError && !passwordError && email && password;
 
   return (
     <main className="main">
@@ -91,7 +141,8 @@ function Auth({ title, button, text, linkTo, linkText }) {
                   maxLength="30"
                   value={name}
                   onChange={handleNameChange}
-                ></input>
+                />
+                <p className="auth__input-error">{nameError}</p>
               </div>
             )}
             <div className="auth__input-box">
@@ -105,7 +156,8 @@ function Auth({ title, button, text, linkTo, linkText }) {
                 maxLength="30"
                 value={email}
                 onChange={handleEmailChange}
-              ></input>
+              />
+              <p className="auth__input-error">{emailError}</p>
             </div>
             <div className="auth__input-box">
               <label className="auth__input-label">Пароль</label>
@@ -118,19 +170,26 @@ function Auth({ title, button, text, linkTo, linkText }) {
                 maxLength="30"
                 value={password}
                 onChange={handlePasswordChange}
-              ></input>
+              />
+              <p className="auth__input-error">{passwordError}</p>
             </div>
-            <span className="auth__input-error auth__input-error_inactive">
-              Что-то пошло не так...
-            </span>
-            <button
-              type="submit"
-              className={`auth__button ${
-                register ? "auth__button_register" : ""
+            <div
+              className={`auth__button-box ${
+                register ? "auth__button-box_register" : ""
               }`}
             >
-              {button}
-            </button>
+              {generalError && (
+                <p className="auth__general-error">{generalError}</p>
+              )}
+              <button
+                type="submit"
+                className={`auth__button
+              }`}
+                disabled={!isFormValid}
+              >
+                {button}
+              </button>
+            </div>
           </form>
           <div className="auth__link-box">
             <p className="auth__text">{text}</p>

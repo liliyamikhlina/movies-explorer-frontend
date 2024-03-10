@@ -1,25 +1,54 @@
 import { useEffect, useState, useContext } from "react";
-// import { Link } from "react-router-dom";
+
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 import "../Main/Main.css";
 
-function Profile({ onUpdateUser, onSignOut }) {
+function Profile({ onUpdateUser, onSignOut, userUpdateError }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
   const handleNameChange = (e) => {
+    const nameRegex = /^[A-Za-zА-Яа-яЁё\s-]*$/;
+    const isValidInput = nameRegex.test(e.target.value);
     setName(e.target.value);
+    if (!e.target.value) {
+      setNameError("Поле должно быть заполнено");
+    } else if (!isValidInput) {
+      setNameError(
+        "Имя должно содержать только латинские или кириллические символы, пробелы или дефисы"
+      );
+    } else {
+      setNameError("");
+    }
   };
 
   const handleEmailChange = (e) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(e.target.value);
     setEmail(e.target.value);
+    if (!e.target.value) {
+      setEmailError("Поле должно быть заполнено");
+    } else if (!isValidEmail) {
+      setEmailError("Введите корректный email");
+    } else {
+      setEmailError("");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -27,14 +56,21 @@ function Profile({ onUpdateUser, onSignOut }) {
     onUpdateUser({
       name,
       email,
-    });
-    setIsEditing(false);
+    })
+      .then(() => {
+        setIsEditing(false);
+        setGeneralError("");
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 409) {
+          setGeneralError("Пользователь с таким email уже существует.");
+        } else {
+          setGeneralError(userUpdateError);
+        }
+      });
   };
 
-  useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
+  const isFormValid = !nameError && !emailError && name && email;
 
   return (
     <main className="main">
@@ -56,6 +92,7 @@ function Profile({ onUpdateUser, onSignOut }) {
                 onChange={handleNameChange}
               ></input>
             </div>
+            <p className="auth__input-error">{nameError}</p>
             <div className="profile__input-box">
               <label className="profile__input-label">E-mail</label>
               <input
@@ -70,20 +107,30 @@ function Profile({ onUpdateUser, onSignOut }) {
                 onChange={handleEmailChange}
               ></input>
             </div>
-            <button type="submit" className="profile__submit">
-              Сохранить
-            </button>
+            <p className="auth__input-error">{emailError}</p>
+            {isEditing && (
+              <>
+                <p className="profile__general-error">{generalError}</p>
+                <button
+                  type="submit"
+                  className="profile__submit"
+                  disabled={!isFormValid}
+                >
+                  Сохранить
+                </button>
+              </>
+            )}
           </form>
-          <p className="profile__edit" onClick={handleEditClick}>
-            Редактировать
-          </p>
-          <p
-            //Тут еще нужно jwt из LS удалить
-            className="profile__signout"
-            onClick={onSignOut}
-          >
-            Выйти из аккаунта
-          </p>
+          {!isEditing && (
+            <>
+              <p className="profile__edit" onClick={handleEditClick}>
+                Редактировать
+              </p>
+              <p className="profile__signout" onClick={onSignOut}>
+                Выйти из аккаунта
+              </p>
+            </>
+          )}
         </div>
       </section>
     </main>

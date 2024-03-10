@@ -1,6 +1,6 @@
 import Auth from "../Auth/Auth";
 
-function Login() {
+function Login({ tokenError }) {
   return (
     <Auth
       title={"Рады видеть!"}
@@ -8,6 +8,7 @@ function Login() {
       text={"Еще не зарегистрированы?"}
       linkTo={"/signup"}
       linkText={"Регистрация"}
+      tokenError={tokenError}
     />
   );
 }

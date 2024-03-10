@@ -23,6 +23,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [tokenError, setTokenError] = useState("");
+  const [userUpdateError, setUserUpdateError] = useState("");
 
   const location = useLocation();
   const currentPage = location.pathname;
@@ -34,7 +36,10 @@ function App() {
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setUserUpdateError("При обновлении профиля произошла ошибка.");
+        console.log(err);
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -56,6 +61,7 @@ function App() {
           navigate("/movies");
         })
         .catch((err) => {
+          setTokenError("При авторизации произошла ошибка. Токен не передан или передан не в том формате.")
           localStorage.removeItem("jwt");
           console.log(err);
         });
@@ -67,7 +73,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (currentUser) {
+    if (isLoggedIn) {
       setIsLoading(true);
       Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
         .then(([movies, savedMovies]) => {
@@ -81,7 +87,7 @@ function App() {
         )
         .finally(() => setIsLoading(false));
     }
-  }, [currentUser]);
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -128,12 +134,14 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 onUpdateUser={handleUserUpdate}
                 onSignOut={handleSignOut}
+                userUpdateError={userUpdateError}
                 element={Profile}
               />
             }
           />
 
-          <Route path="/signin" element={<Login />}></Route>
+          <Route path="/signin" element={<Login
+          tokenError={tokenError} /> }></Route>
 
           <Route path="/signup" element={<Register />}></Route>
 
