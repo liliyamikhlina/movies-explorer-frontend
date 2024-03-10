@@ -4,20 +4,20 @@ function MainApi(data) {
   const checkResponseStatus = async (res) => {
     const headers = res.headers.get("content-type");
     let result;
-  
+
     if (res.ok) {
-      if (headers && headers.split("; ")[0] === 'text/html') {
+      if (headers && headers.split("; ")[0] === "text/html") {
         result = await res.text();
       } else {
         result = await res.json();
       }
-  
+
       return result;
     } else {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
   };
-   
+
   const getCurrentUser = () => {
     const token = localStorage.getItem("jwt");
     return fetch(`${_baseUrl}/users/me`, {
