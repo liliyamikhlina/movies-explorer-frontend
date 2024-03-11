@@ -5,7 +5,7 @@ import "./Auth.css";
 import "../Main/Main.css";
 import mainApi from "../../utils/MainApi";
 
-function Auth({ title, button, text, linkTo, linkText, tokenError }) {
+function Auth({ title, button, text, linkTo, linkText, tokenError, handleLogin }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -69,6 +69,7 @@ function Auth({ title, button, text, linkTo, linkText, tokenError }) {
           setEmail("");
           setPassword("");
         }
+        handleLogin();
         navigate("/movies", { replace: true });
       })
       .catch((err) => {

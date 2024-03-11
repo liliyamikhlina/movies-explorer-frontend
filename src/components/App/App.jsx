@@ -43,6 +43,10 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
   const handleSignOut = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("jwt");
@@ -141,7 +145,7 @@ function App() {
           />
 
           <Route path="/signin" element={<Login
-          tokenError={tokenError} /> }></Route>
+          tokenError={tokenError} handleLogin={handleLogin} /> }></Route>
 
           <Route path="/signup" element={<Register />}></Route>
 
