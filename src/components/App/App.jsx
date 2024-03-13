@@ -20,11 +20,12 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [tokenError, setTokenError] = useState("");
   const [userUpdateError, setUserUpdateError] = useState("");
+  const [successMessage, setsuccessMessage] = useState("");
 
   const location = useLocation();
   const currentPage = location.pathname;
@@ -35,10 +36,14 @@ function App() {
       .updateUser(userInfo)
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
+        setsuccessMessage("Профиль успешно обновлен")
       })
       .catch((err) => {
-        setUserUpdateError("При обновлении профиля произошла ошибка.");
         console.log(err);
+        if (err.response && err.response.status === 409) {
+          setUserUpdateError("Пользователь с таким email уже существует.");
+        }
+        setUserUpdateError("При обновлении профиля произошла ошибка.");
       })
       .finally(() => setIsLoading(false));
   };
@@ -62,10 +67,11 @@ function App() {
         .then((userInfo) => {
           setIsLoggedIn(true);
           setCurrentUser(userInfo);
-          navigate("/movies");
         })
         .catch((err) => {
-          setTokenError("При авторизации произошла ошибка. Токен не передан или передан не в том формате.")
+          setTokenError(
+            "При авторизации произошла ошибка. Токен не передан или передан не в том формате."
+          );
           localStorage.removeItem("jwt");
           console.log(err);
         });
@@ -136,18 +142,27 @@ function App() {
             element={
               <ProtectedRoute
                 isLoggedIn={isLoggedIn}
+                isLoading={isLoading}
                 onUpdateUser={handleUserUpdate}
                 onSignOut={handleSignOut}
                 userUpdateError={userUpdateError}
+                successMessage={successMessage}
                 element={Profile}
               />
             }
           />
 
-          <Route path="/signin" element={<Login
-          tokenError={tokenError} handleLogin={handleLogin} /> }></Route>
+          <Route
+            path="/signin"
+            element={
+              <Login tokenError={tokenError} handleLogin={handleLogin} />
+            }
+          ></Route>
 
-          <Route path="/signup" element={<Register />}></Route>
+          <Route
+            path="/signup"
+            element={<Register handleLogin={handleLogin} />}
+          ></Route>
 
           <Route path="*" element={<NotFound />}></Route>
         </Routes>

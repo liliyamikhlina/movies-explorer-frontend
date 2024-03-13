@@ -5,7 +5,15 @@ import "./Auth.css";
 import "../Main/Main.css";
 import mainApi from "../../utils/MainApi";
 
-function Auth({ title, button, text, linkTo, linkText, tokenError, handleLogin }) {
+function Auth({
+  title,
+  button,
+  text,
+  linkTo,
+  linkText,
+  tokenError,
+  handleLogin,
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -84,6 +92,7 @@ function Auth({ title, button, text, linkTo, linkText, tokenError, handleLogin }
         }
       });
   };
+
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     setGeneralError("");
@@ -93,8 +102,28 @@ function Auth({ title, button, text, linkTo, linkText, tokenError, handleLogin }
     mainApi
       .registerUser(name, email, password)
       .then(
-        (res) => {
-          navigate("/signin");
+        () => {
+          mainApi
+            .loginUser(email, password)
+            .then((data) => {
+              if (data.token) {
+                setEmail("");
+                setPassword("");
+              }
+              handleLogin();
+              navigate("/movies", { replace: true });
+            })
+            .catch((err) => {
+              if (err.response && err.response.status === 401) {
+                setGeneralError("Вы ввели неправильный логин или пароль.");
+              } else if (tokenError) {
+                setGeneralError(tokenError);
+              } else {
+                setGeneralError(
+                  "При авторизации произошла ошибка. Пожалуйста, попробуйте еще раз."
+                );
+              }
+            });
         },
         (error) => {
           if (error.response && error.response.status === 409) {

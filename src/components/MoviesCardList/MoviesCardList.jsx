@@ -20,6 +20,11 @@ function MoviesCardList({
   const currentPage = location.pathname;
 
   const getCardsAmount = () => {
+    if (currentPage === "/saved-movies") {
+      setCardsToShow(savedMovies.length)
+      return
+    }
+
     if (window.innerWidth >= 1024) {
       setCardsToShow(16);
       setExtraCards(4);

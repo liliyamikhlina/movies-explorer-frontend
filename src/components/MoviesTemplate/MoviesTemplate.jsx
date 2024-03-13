@@ -13,7 +13,7 @@ function MoviesTemplate({
   onSearchDone,
 }) {
 
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]); 
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortFilmsChecked, setIsShortFilmsChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,9 +61,8 @@ function MoviesTemplate({
     }
 
     currentPage === "/movies" ? setMovies(finalMovies) : setSavedMovies(finalMovies);
-    setSearchQuery(inputValue);
+    setSearchQuery(inputValue); 
     setIsShortFilmsChecked(isShortFilms);
-
     if (currentPage === "/movies") {
       const searchData = {
         query: inputValue,

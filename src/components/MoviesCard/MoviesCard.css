@@ -121,6 +121,9 @@
 }
 
 .card__delete:hover {
-  opacity: 1;
   cursor: pointer;
+}
+
+.card:hover .card__delete {
+  opacity: 1;
 }

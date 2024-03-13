@@ -4,7 +4,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 import "../Main/Main.css";
 
-function Profile({ onUpdateUser, onSignOut, userUpdateError }) {
+function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -53,21 +53,22 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (name === currentUser.name && email === currentUser.email) {
+      setGeneralError("Необходимо внести изменения");
+      return;
+    }
+
     onUpdateUser({
       name,
       email,
     })
-      .then(() => {
-        setIsEditing(false);
-        setGeneralError("");
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 409) {
-          setGeneralError("Пользователь с таким email уже существует.");
-        } else {
-          setGeneralError(userUpdateError);
-        }
-      });
+    if (userUpdateError) {
+      setGeneralError(userUpdateError);
+    } else {
+      setIsEditing(false);
+      console.log(successMessage);
+    }
   };
 
   const isFormValid = !nameError && !emailError && name && email;
@@ -122,14 +123,15 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError }) {
             )}
           </form>
           {!isEditing && (
-            <>
+            <div className="profile__edit-box">
+              <p className="profile__success">{successMessage}</p>
               <p className="profile__edit" onClick={handleEditClick}>
                 Редактировать
               </p>
               <p className="profile__signout" onClick={onSignOut}>
                 Выйти из аккаунта
               </p>
-            </>
+            </div>
           )}
         </div>
       </section>
