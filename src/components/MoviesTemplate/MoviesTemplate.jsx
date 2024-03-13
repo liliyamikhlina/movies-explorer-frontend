@@ -100,10 +100,9 @@ function MoviesTemplate({
     return mainApi
       .addSavedMovie(movieToAdd)
       .then((savedMovie) => {
-        console.log('Попали в then');
         savedMovies.push(savedMovie);
         setSavedMovies(savedMovies);
-        return true
+        return true;
       })
       .catch((err) => console.log(err));
   };
@@ -121,7 +120,7 @@ function MoviesTemplate({
             setSavedMovies((list) =>
               list.filter((item) => item._id !== foundMovie._id)
             );
-            return true
+            return true;
           })
           .catch((err) => {
             console.log(err);
@@ -134,6 +133,7 @@ function MoviesTemplate({
           setSavedMovies((list) =>
             list.filter((item) => item._id !== movie._id)
           );
+          return true;
         })
         .catch((err) => {
           console.log(err);

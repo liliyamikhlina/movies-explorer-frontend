@@ -67,7 +67,6 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
       setGeneralError(userUpdateError);
     } else {
       setIsEditing(false);
-      console.log(successMessage);
     }
   };
 

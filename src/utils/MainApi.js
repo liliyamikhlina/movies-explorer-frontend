@@ -70,7 +70,6 @@ function MainApi(data) {
   };
 
   const deleteSavedMovie = (id) => {
-    console.log(id);
     const token = localStorage.getItem("jwt");
     return fetch(`${_baseUrl}/movies/${id}`, {
       method: "DELETE",

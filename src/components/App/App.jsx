@@ -36,7 +36,7 @@ function App() {
       .updateUser(userInfo)
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
-        setsuccessMessage("Профиль успешно обновлен")
+        setsuccessMessage("Профиль успешно обновлен");
       })
       .catch((err) => {
         console.log(err);
