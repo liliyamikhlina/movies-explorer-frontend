@@ -15,7 +15,6 @@ function MoviesTemplate({
 
   const [movies, setMovies] = useState([]); 
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isSavedMoviesLoaded, setIsSavedMoviesLoaded] = useState(false);
   const [isShortFilmsChecked, setIsShortFilmsChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -38,18 +37,12 @@ function MoviesTemplate({
   }, [moviesList]);
 
   useEffect(() => {
-    if(!isSavedMoviesLoaded) {
-      isSavedMoviesLoaded(true)
       mainApi
       .getSavedMovies()
       .then((smovies) => {
         setSavedMovies(smovies);
-        isSavedMoviesLoaded(true)
       })
       .catch((err) => console.log(err));
-    } else {
-      console.log('Вы уже отправляли запрос'); //Проверить самостоятельно
-    }
    
   }, [moviesList]);
 
