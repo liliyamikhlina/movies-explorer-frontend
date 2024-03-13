@@ -96,11 +96,13 @@ function MoviesTemplate({
       movieId: movie.id,
     };
 
-    mainApi
+    return mainApi
       .addSavedMovie(movieToAdd)
       .then((savedMovie) => {
+        console.log('Попали в then');
         savedMovies.push(savedMovie);
         setSavedMovies(savedMovies);
+        return true
       })
       .catch((err) => console.log(err));
   };
@@ -112,12 +114,13 @@ function MoviesTemplate({
       );
 
       if (foundMovie) {
-        mainApi
+        return mainApi
           .deleteSavedMovie(foundMovie._id)
           .then(() => {
             setSavedMovies((list) =>
               list.filter((item) => item._id !== foundMovie._id)
             );
+            return true
           })
           .catch((err) => {
             console.log(err);
