@@ -59,9 +59,11 @@ function MoviesTemplate({
       finalMovies = foundMovies;
     }
 
-    currentPage === "/movies"
-      ? setMovies(finalMovies)
-      : setSavedMovies(finalMovies);
+    if (currentPage === "/movies") {
+      setMovies(finalMovies);
+    } else {
+      setSavedMovies(finalMovies);
+    }
     setSearchQuery(inputValue);
     setIsShortFilmsChecked(isShortFilms);
     if (currentPage === "/movies") {
