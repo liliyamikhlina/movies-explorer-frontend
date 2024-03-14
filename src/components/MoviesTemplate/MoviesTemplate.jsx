@@ -12,8 +12,7 @@ function MoviesTemplate({
   searchWasDone,
   onSearchDone,
 }) {
-
-  const [movies, setMovies] = useState([]); 
+  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortFilmsChecked, setIsShortFilmsChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,13 +36,12 @@ function MoviesTemplate({
   }, [moviesList]);
 
   useEffect(() => {
-      mainApi
+    mainApi
       .getSavedMovies()
       .then((smovies) => {
         setSavedMovies(smovies);
       })
       .catch((err) => console.log(err));
-   
   }, [moviesList]);
 
   const handleSearchSubmit = (inputValue, isShortFilms) => {
@@ -61,8 +59,10 @@ function MoviesTemplate({
       finalMovies = foundMovies;
     }
 
-    currentPage === "/movies" ? setMovies(finalMovies) : setSavedMovies(finalMovies);
-    setSearchQuery(inputValue); 
+    currentPage === "/movies"
+      ? setMovies(finalMovies)
+      : setSavedMovies(finalMovies);
+    setSearchQuery(inputValue);
     setIsShortFilmsChecked(isShortFilms);
     if (currentPage === "/movies") {
       const searchData = {
@@ -82,7 +82,7 @@ function MoviesTemplate({
     handleSearchSubmit(searchQuery, isShortFilms);
   };
 
-  const handleMovieLike = (movie, isLiked) => {
+  const handleMovieLike = (movie) => {
     const movieToAdd = {
       country: movie.country,
       director: movie.director,
@@ -97,45 +97,42 @@ function MoviesTemplate({
       movieId: movie.id,
     };
 
-    mainApi
+    return mainApi
       .addSavedMovie(movieToAdd)
       .then((savedMovie) => {
         savedMovies.push(savedMovie);
         setSavedMovies(savedMovies);
+        return true;
       })
       .catch((err) => console.log(err));
   };
 
-  const handleMovieDelete = (movie) => {
-    if (!movie._id) {
-      const foundMovie = savedMovies.find(
-        (savedMovie) => savedMovie.nameRU === movie.nameRU
-      );
+  const handleMovieDislike = (movie) => {
+    const foundMovie = savedMovies.find(
+      (savedMovie) => savedMovie.nameRU === movie.nameRU
+    );
+    return mainApi
+      .deleteSavedMovie(foundMovie._id)
+      .then(() => {
+        setSavedMovies((list) =>
+          list.filter((item) => item._id !== foundMovie._id)
+        );
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-      if (foundMovie) {
-        mainApi
-          .deleteSavedMovie(foundMovie._id)
-          .then(() => {
-            setSavedMovies((list) =>
-              list.filter((item) => item._id !== foundMovie._id)
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    } else {
-      mainApi
-        .deleteSavedMovie(movie._id)
-        .then(() => {
-          setSavedMovies((list) =>
-            list.filter((item) => item._id !== movie._id)
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const handleMovieDelete = (movie) => {
+    mainApi
+      .deleteSavedMovie(movie._id)
+      .then(() => {
+        setSavedMovies((list) => list.filter((item) => item._id !== movie._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -154,6 +151,7 @@ function MoviesTemplate({
             searchWasDone={searchWasDone}
             isLoading={isLoading}
             onLike={handleMovieLike}
+            onDislike={handleMovieDislike}
             onDelete={handleMovieDelete}
           />
         )}

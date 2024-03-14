@@ -10,7 +10,8 @@ function MoviesCardList({
   searchWasDone,
   isLoading,
   onLike,
-  onDelete,
+  onDislike,
+  onDelete
 }) {
   const [nothingIsFound, setNothingIsFound] = useState(false);
   const [cardsToShow, setCardsToShow] = useState(0);
@@ -86,9 +87,8 @@ function MoviesCardList({
                 <MoviesCard
                   movie={savedMovie}
                   key={savedMovie.movieId}
-                  onLike={onLike}
-                  onDelete={onDelete}
                   savedMovies={savedMovies}
+                  onDelete={onDelete}
                 />
               ))}
             </ul>
@@ -99,7 +99,7 @@ function MoviesCardList({
                   movie={movie}
                   key={movie.id}
                   onLike={onLike}
-                  onDelete={onDelete}
+                  onDislike={onDislike}
                   savedMovies={savedMovies}
                 />
               ))}

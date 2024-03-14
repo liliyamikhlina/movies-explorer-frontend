@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 
-function MoviesCard({ movie, onLike, onDelete, savedMovies }) {
+function MoviesCard({ movie, onLike, onDislike, savedMovies, onDelete }) {
   const location = useLocation();
   const currentPage = location.pathname;
   const [isSaved, setIsSaved] = useState(false);
@@ -15,20 +15,33 @@ function MoviesCard({ movie, onLike, onDelete, savedMovies }) {
   }, [savedMovies, movie.id]);
 
   const handleLike = () => {
-    onLike(movie, !isSaved);
+    onLike(movie)
+      .then((res) => {
+        setIsSaved(true);
+        console.log(res);
+      })
+      .catch((err) => console.err(err));
+  };
+
+  const handleDislike = () => {
+    onDislike(movie)
+      .then((res) => {
+        setIsSaved(false);
+        console.log(res);
+      })
+      .catch((err) => console.err(err));
+  };
+
+  const handleLikeToggle = () => {
+    if (isSaved === true) {
+      handleDislike();
+    } else {
+      handleLike();
+    }
   };
 
   const handleDelete = () => {
     onDelete(movie);
-  };
-
-  const handleLikeToggle = () => {
-    setIsSaved(!isSaved)
-    if (isSaved === true) {
-      handleDelete();
-    } else {
-      handleLike();
-    }
   };
 
   const formatDuration = (min) => {
