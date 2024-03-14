@@ -9,6 +9,7 @@ function SearchForm({
   isShortFilmsChecked,
   handleShortFilmsCheckbox,
   searchQuery,
+  isLoading
 }) {
   const [inputValue, setInputValue] = useState(searchQuery);
   const [errorMessage, setErrorMessage] = useState("");
@@ -50,6 +51,7 @@ function SearchForm({
             placeholder="Фильм"
             value={inputValue}
             onChange={handleInputChange}
+            disabled={isLoading}
           ></input>
           <button className="search__button" type="submit">
             Найти

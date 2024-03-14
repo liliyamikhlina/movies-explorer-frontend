@@ -143,6 +143,7 @@ function MoviesTemplate({
           handleShortFilmsCheckbox={handleShortFilmsCheckbox}
           isShortFilmsChecked={isShortFilmsChecked}
           searchQuery={searchQuery}
+          isLoading={isLoading}
         />
         {searchWasDone && (
           <MoviesCardList

@@ -9,6 +9,7 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -58,7 +59,7 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
       setGeneralError("Необходимо внести изменения");
       return;
     }
-
+    setIsLoading(true); 
     onUpdateUser({
       name,
       email,
@@ -68,6 +69,7 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
     } else {
       setIsEditing(false);
     }
+    setIsLoading(false);
   };
 
   const isFormValid = !nameError && !emailError && name && email;
@@ -77,14 +79,15 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
       <section className="profile">
         <div className="profile__box">
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
-          <form method="get" onSubmit={handleSubmit}>
+          <form method="get" 
+          onSubmit={handleSubmit}>
             <div className="profile__input-box">
               <label className="profile__input-label">Имя</label>
               <input
                 className="profile__input"
                 type="text"
                 value={name}
-                disabled={!isEditing}
+                disabled={!isEditing || isLoading}
                 placeholder="Введите ваше имя"
                 required
                 minLength="2"
@@ -99,7 +102,7 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
                 className="profile__input"
                 type="email"
                 value={email}
-                disabled={!isEditing}
+                disabled={!isEditing || isLoading}
                 placeholder="Введите ваш email"
                 required
                 minLength="2"

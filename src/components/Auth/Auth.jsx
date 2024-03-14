@@ -20,11 +20,11 @@ function Auth({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [generalError, setGeneralError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const register = location.pathname === "/signup";
 
@@ -70,6 +70,7 @@ function Auth({
     if (!email || !password) {
       return;
     }
+    setIsLoading(true);
     mainApi
       .loginUser(email, password)
       .then((data) => {
@@ -90,7 +91,8 @@ function Auth({
             "При авторизации произошла ошибка. Пожалуйста, попробуйте еще раз."
           );
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleRegisterSubmit = (e) => {
@@ -171,6 +173,7 @@ function Auth({
                   maxLength="30"
                   value={name}
                   onChange={handleNameChange}
+                  disabled={isLoading}
                 />
                 <p className="auth__input-error">{nameError}</p>
               </div>
@@ -186,6 +189,7 @@ function Auth({
                 maxLength="30"
                 value={email}
                 onChange={handleEmailChange}
+                disabled={isLoading}
               />
               <p className="auth__input-error">{emailError}</p>
             </div>
@@ -200,6 +204,7 @@ function Auth({
                 maxLength="30"
                 value={password}
                 onChange={handlePasswordChange}
+                disabled={isLoading}
               />
               <p className="auth__input-error">{passwordError}</p>
             </div>
