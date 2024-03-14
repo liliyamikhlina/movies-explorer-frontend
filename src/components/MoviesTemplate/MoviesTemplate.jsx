@@ -97,12 +97,11 @@ function MoviesTemplate({
       movieId: movie.id,
     };
 
-    return mainApi
+    mainApi
       .addSavedMovie(movieToAdd)
       .then((savedMovie) => {
         savedMovies.push(savedMovie);
         setSavedMovies(savedMovies);
-        return true;
       })
       .catch((err) => console.log(err));
   };
@@ -114,13 +113,12 @@ function MoviesTemplate({
       );
 
       if (foundMovie) {
-        return mainApi
+        mainApi
           .deleteSavedMovie(foundMovie._id)
           .then(() => {
             setSavedMovies((list) =>
               list.filter((item) => item._id !== foundMovie._id)
             );
-            return true;
           })
           .catch((err) => {
             console.log(err);
@@ -133,7 +131,6 @@ function MoviesTemplate({
           setSavedMovies((list) =>
             list.filter((item) => item._id !== movie._id)
           );
-          return true;
         })
         .catch((err) => {
           console.log(err);

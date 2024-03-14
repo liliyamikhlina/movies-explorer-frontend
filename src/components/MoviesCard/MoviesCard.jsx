@@ -15,19 +15,15 @@ function MoviesCard({ movie, onLike, onDelete, savedMovies }) {
   }, [savedMovies, movie.id]);
 
   const handleLike = () => {
-    onLike(movie, !isSaved).then((res) => {
-      if (res === true) setIsSaved(true);
-    });
+    onLike(movie, !isSaved);
   };
 
   const handleDelete = () => {
-    onDelete(movie).then((res) => {
-      if (res === true) setIsSaved(false);
-    });
+    onDelete(movie);
   };
 
   const handleLikeToggle = () => {
-    // setIsSaved(!isSaved)
+    setIsSaved(!isSaved)
     if (isSaved === true) {
       handleDelete();
     } else {
