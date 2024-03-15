@@ -21,6 +21,15 @@ function MoviesTemplate({
   const currentPage = location.pathname;
 
   useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then((smovies) => {
+        setSavedMovies(smovies);
+      })
+      .catch((err) => console.log(err));
+  }, [moviesList]);
+
+  useEffect(() => {
     if (currentPage === "/movies") {
       const searchData = localStorage.getItem("searchData");
       if (searchData) {
@@ -35,15 +44,6 @@ function MoviesTemplate({
     } else if (currentPage === "/saved-movies") {
       setSavedMovies(moviesList);
     }
-  }, [moviesList]);
-
-  useEffect(() => {
-    mainApi
-      .getSavedMovies()
-      .then((smovies) => {
-        setSavedMovies(smovies);
-      })
-      .catch((err) => console.log(err));
   }, [moviesList]);
 
   const handleSearchSubmit = (inputValue, isShortFilms) => {
@@ -118,9 +118,8 @@ function MoviesTemplate({
     return mainApi
       .deleteSavedMovie(foundMovie._id)
       .then(() => {
-        setSavedMovies((list) =>
-          list.filter((item) => item._id !== foundMovie._id)
-        );
+        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== foundMovie._id);
+        setSavedMovies(newList);
         return true;
       })
       .catch((err) => {
@@ -132,7 +131,8 @@ function MoviesTemplate({
     mainApi
       .deleteSavedMovie(movie._id)
       .then(() => {
-        setSavedMovies((list) => list.filter((item) => item._id !== movie._id));
+        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== movie._id);
+        setSavedMovies(newList);
       })
       .catch((err) => {
         console.log(err);
