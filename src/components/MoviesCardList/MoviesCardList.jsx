@@ -22,7 +22,8 @@ function MoviesCardList({
 
   const getCardsAmount = () => {
     if (currentPage === "/saved-movies") {
-      setCardsToShow(savedMovies.length)
+      setCardsToShow(savedMovies.length);
+      setExtraCards(0);
       return
     }
 
@@ -66,11 +67,16 @@ function MoviesCardList({
 
   useEffect(() => {
     let currentArray;
-    currentPage === "/movies" ? currentArray = movies : currentArray = savedMovies;
-    if (searchWasDone && currentArray.length === 0 ) {
-      setNothingIsFound(true);
-    } else {
-      setNothingIsFound(false);
+    if (currentPage === "/movies") {
+      currentArray = movies;
+      if (searchWasDone && currentArray.length === 0) {
+        setNothingIsFound(true);
+      } else {
+        setNothingIsFound(false);
+        getCardsAmount();
+      }
+    } else if (currentPage === "/saved-movies") {
+      currentArray = savedMovies;
       getCardsAmount();
     }
   }, [searchWasDone, movies, savedMovies]);

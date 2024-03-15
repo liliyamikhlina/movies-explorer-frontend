@@ -32,6 +32,8 @@ function MoviesTemplate({
       } else {
         setMovies(moviesList);
       }
+    } else if (currentPage === "/saved-movies") {
+      setSavedMovies(moviesList);
     }
   }, [moviesList]);
 
