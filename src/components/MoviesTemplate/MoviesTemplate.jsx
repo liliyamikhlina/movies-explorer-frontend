@@ -11,6 +11,7 @@ function MoviesTemplate({
   isLoading,
   searchWasDone,
   onSearchDone,
+  handleMovieLike, handleMovieDislike, handleMovieDelete
 }) {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -21,7 +22,7 @@ function MoviesTemplate({
   const currentPage = location.pathname;
 
   useEffect(() => {
-    mainApi
+        mainApi
       .getSavedMovies()
       .then((smovies) => {
         setSavedMovies(smovies);
@@ -30,7 +31,7 @@ function MoviesTemplate({
   }, [moviesList]);
 
   useEffect(() => {
-    if (currentPage === "/movies") {
+        if (currentPage === "/movies") {
       const searchData = localStorage.getItem("searchData");
       if (searchData) {
         const { query, isShortFilms, foundMovies } = JSON.parse(searchData);
@@ -86,58 +87,6 @@ function MoviesTemplate({
     handleSearchSubmit(searchQuery, isShortFilms);
   };
 
-  const handleMovieLike = (movie) => {
-    const movieToAdd = {
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
-      image: `https://api.nomoreparties.co${movie.image.url}`,
-      trailerLink: movie.trailerLink,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-      movieId: movie.id,
-    };
-
-    return mainApi
-      .addSavedMovie(movieToAdd)
-      .then((savedMovie) => {
-        savedMovies.push(savedMovie);
-        setSavedMovies(savedMovies);
-        return true;
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleMovieDislike = (movie) => {
-    const foundMovie = savedMovies.find(
-      (savedMovie) => savedMovie.nameRU === movie.nameRU
-    );
-    return mainApi
-      .deleteSavedMovie(foundMovie._id)
-      .then(() => {
-        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== foundMovie._id);
-        setSavedMovies(newList);
-        return true;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleMovieDelete = (movie) => {
-    mainApi
-      .deleteSavedMovie(movie._id)
-      .then(() => {
-        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== movie._id);
-        setSavedMovies(newList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <main className="main">

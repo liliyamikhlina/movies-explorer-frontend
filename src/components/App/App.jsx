@@ -78,6 +78,60 @@ function App() {
     }
   };
 
+  
+  const handleMovieLike = (movie) => {
+    const movieToAdd = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+    };
+
+    return mainApi
+      .addSavedMovie(movieToAdd)
+      .then((savedMovie) => {
+        savedMovies.push(savedMovie);
+        setSavedMovies(savedMovies);
+        return true;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleMovieDislike = (movie) => {
+    const foundMovie = savedMovies.find(
+      (savedMovie) => savedMovie.nameRU === movie.nameRU
+    );
+    return mainApi
+      .deleteSavedMovie(foundMovie._id)
+      .then(() => {
+        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== foundMovie._id);
+        setSavedMovies(newList);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleMovieDelete = (movie) => {
+    mainApi
+      .deleteSavedMovie(movie._id)
+      .then(() => {
+        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== movie._id);
+        setSavedMovies(newList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     handleTockenCheck();
   }, []);
@@ -121,6 +175,9 @@ function App() {
                 moviesList={movies}
                 isLoading={isLoading}
                 element={Movies}
+                handleMovieLike={handleMovieLike}
+                handleMovieDislike={handleMovieDislike}
+                handleMovieDelete={handleMovieDelete}
               />
             }
           />
@@ -133,6 +190,9 @@ function App() {
                 moviesList={savedMovies}
                 isLoading={isLoading}
                 element={SavedMovies}
+                handleMovieLike={handleMovieLike}
+                handleMovieDislike={handleMovieDislike}
+                handleMovieDelete={handleMovieDelete}
               />
             }
           />

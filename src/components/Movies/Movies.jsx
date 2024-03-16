@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MoviesTemplate from "../MoviesTemplate/MoviesTemplate";
 
-function Movies({ moviesList, isLoading }) {
+function Movies({ moviesList, isLoading, handleMovieLike, handleMovieDislike, handleMovieDelete }) {
   const [searchWasDone, setSearchWasDone] = useState(false);
 
   const handleSearchDone = (value) => {
@@ -14,6 +14,9 @@ function Movies({ moviesList, isLoading }) {
       isLoading={isLoading}
       searchWasDone={searchWasDone}
       onSearchDone={handleSearchDone}
+      handleMovieLike={handleMovieLike}
+      handleMovieDislike={handleMovieDislike}
+      handleMovieDelete={handleMovieDelete}
     />
   );
 }
