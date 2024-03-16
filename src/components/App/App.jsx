@@ -36,7 +36,7 @@ function App() {
       .updateUser(userInfo)
       .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
-         setsuccessMessage("Профиль успешно обновлен");
+        setsuccessMessage("Профиль успешно обновлен");
       })
       .catch((err) => {
         console.log(err);
@@ -78,7 +78,6 @@ function App() {
     }
   };
 
-  
   const handleMovieLike = (movie) => {
     const movieToAdd = {
       country: movie.country,
@@ -111,7 +110,9 @@ function App() {
     return mainApi
       .deleteSavedMovie(foundMovie._id)
       .then(() => {
-        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== foundMovie._id);
+        const newList = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== foundMovie._id
+        );
         setSavedMovies(newList);
         return true;
       })
@@ -124,7 +125,9 @@ function App() {
     mainApi
       .deleteSavedMovie(movie._id)
       .then(() => {
-        const newList = savedMovies.filter((savedMovie) => savedMovie._id !== movie._id);
+        const newList = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movie._id
+        );
         setSavedMovies(newList);
       })
       .catch((err) => {
@@ -134,7 +137,7 @@ function App() {
 
   useEffect(() => {
     handleTockenCheck();
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -215,13 +218,19 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login tokenError={tokenError} handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
+              <Login
+                tokenError={tokenError}
+                handleLogin={handleLogin}
+                isLoggedIn={isLoggedIn}
+              />
             }
           ></Route>
 
           <Route
             path="/signup"
-            element={<Register handleLogin={handleLogin} isLoggedIn={isLoggedIn} />}
+            element={
+              <Register handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
+            }
           ></Route>
 
           <Route path="*" element={<NotFound />}></Route>

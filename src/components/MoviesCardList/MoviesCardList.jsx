@@ -11,7 +11,7 @@ function MoviesCardList({
   isLoading,
   onLike,
   onDislike,
-  onDelete
+  onDelete,
 }) {
   const [nothingIsFound, setNothingIsFound] = useState(false);
   const [cardsToShow, setCardsToShow] = useState(0);
@@ -24,7 +24,7 @@ function MoviesCardList({
     if (currentPage === "/saved-movies") {
       setCardsToShow(savedMovies.length);
       setExtraCards(0);
-      return
+      return;
     }
 
     if (window.innerWidth >= 1024) {
@@ -69,14 +69,13 @@ function MoviesCardList({
     let currentArray;
     if (currentPage === "/movies") {
       currentArray = movies;
-      if (searchWasDone && currentArray.length === 0) {
-        setNothingIsFound(true);
-      } else {
-        setNothingIsFound(false);
-        getCardsAmount();
-      }
     } else if (currentPage === "/saved-movies") {
       currentArray = savedMovies;
+    }
+    if (searchWasDone && currentArray.length === 0) {
+      setNothingIsFound(true);
+    } else {
+      setNothingIsFound(false);
       getCardsAmount();
     }
   }, [searchWasDone, movies, savedMovies]);

@@ -9,20 +9,21 @@ import mainApi from "../../utils/MainApi";
 function MoviesTemplate({
   moviesList,
   isLoading,
-  searchWasDone,
-  onSearchDone,
-  handleMovieLike, handleMovieDislike, handleMovieDelete
+  handleMovieLike,
+  handleMovieDislike,
+  handleMovieDelete,
 }) {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortFilmsChecked, setIsShortFilmsChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchWasDone, setSearchWasDone] = useState(false);
 
   const location = useLocation();
   const currentPage = location.pathname;
 
   useEffect(() => {
-        mainApi
+    mainApi
       .getSavedMovies()
       .then((smovies) => {
         setSavedMovies(smovies);
@@ -31,7 +32,12 @@ function MoviesTemplate({
   }, [moviesList]);
 
   useEffect(() => {
-        if (currentPage === "/movies") {
+    if (currentPage === "/saved-movies" && moviesList.length !== 0)
+      setSearchWasDone(true);
+  }, []);
+
+  useEffect(() => {
+    if (currentPage === "/movies") {
       const searchData = localStorage.getItem("searchData");
       if (searchData) {
         const { query, isShortFilms, foundMovies } = JSON.parse(searchData);
@@ -78,7 +84,7 @@ function MoviesTemplate({
 
       localStorage.setItem("searchData", JSON.stringify(searchData));
     }
-    onSearchDone(true);
+    setSearchWasDone(true);
   };
 
   const handleShortFilmsCheckbox = () => {
@@ -86,7 +92,6 @@ function MoviesTemplate({
     setIsShortFilmsChecked(isShortFilms);
     handleSearchSubmit(searchQuery, isShortFilms);
   };
-
 
   return (
     <main className="main">

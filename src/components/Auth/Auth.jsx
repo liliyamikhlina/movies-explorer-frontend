@@ -102,6 +102,7 @@ function Auth({
     if (!name || !email || !password) {
       return;
     }
+    setIsLoading(true);
     mainApi
       .registerUser(name, email, password)
       .then(
@@ -143,7 +144,8 @@ function Auth({
           "При регистрации пользователя произошла ошибка. Пожалуйста, попробуйте еще раз."
         );
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const isFormValid = register

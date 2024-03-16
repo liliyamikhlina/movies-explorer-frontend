@@ -18,7 +18,6 @@ function MoviesCard({ movie, onLike, onDislike, savedMovies, onDelete }) {
     onLike(movie)
       .then((res) => {
         setIsSaved(true);
-        console.log(res);
       })
       .catch((err) => console.err(err));
   };
@@ -27,7 +26,6 @@ function MoviesCard({ movie, onLike, onDislike, savedMovies, onDelete }) {
     onDislike(movie)
       .then((res) => {
         setIsSaved(false);
-        console.log(res);
       })
       .catch((err) => console.err(err));
   };
