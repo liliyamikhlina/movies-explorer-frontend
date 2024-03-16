@@ -215,13 +215,13 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login tokenError={tokenError} handleLogin={handleLogin} />
+              <Login tokenError={tokenError} handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
             }
           ></Route>
 
           <Route
             path="/signup"
-            element={<Register handleLogin={handleLogin} />}
+            element={<Register handleLogin={handleLogin} isLoggedIn={isLoggedIn} />}
           ></Route>
 
           <Route path="*" element={<NotFound />}></Route>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Auth.css";
 import "../Main/Main.css";
@@ -13,6 +13,7 @@ function Auth({
   linkText,
   tokenError,
   handleLogin,
+  isLoggedIn
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -148,6 +149,11 @@ function Auth({
   const isFormValid = register
     ? !nameError && !emailError && !passwordError && name && email && password
     : !emailError && !passwordError && email && password;
+
+  if(isLoggedIn) {
+    return <Navigate to="/" />;
+  };
+
 
   return (
     <main className="main">

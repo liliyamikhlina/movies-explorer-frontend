@@ -54,7 +54,7 @@ function Profile({ onUpdateUser, onSignOut, userUpdateError, successMessage }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     if (name === currentUser.name && email === currentUser.email) {
       setGeneralError("Необходимо внести изменения");
       return;

@@ -1,6 +1,6 @@
 import Auth from "../Auth/Auth";
 
-function Register({ handleLogin }) {
+function Register({ handleLogin, isLoggedIn }) {
   return (
       <Auth
         title={"Добро пожаловать!"}
@@ -9,6 +9,7 @@ function Register({ handleLogin }) {
         linkTo={"/signin"}
         linkText={"Войти"}
         handleLogin={handleLogin}
+        isLoggedIn={isLoggedIn}
       />
   );
 }
