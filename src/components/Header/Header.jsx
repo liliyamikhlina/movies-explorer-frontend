@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import account from "../../images/profile-no-text.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
-function Header({ main, isLoggedIn }) {
+function Header({ isLoggedIn }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const location = useLocation();
+  const currentPage = location.pathname;
+  const main = currentPage === "/";
 
   const handleSidebarButtonClick = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -21,10 +25,16 @@ function Header({ main, isLoggedIn }) {
       {isLoggedIn && (
         <>
           <nav className="header__box header__box_signed">
-            <Link to="/movies" className="header__link header__link_films">
+            <Link to="/movies"
+            className={`header__link header__link_films ${
+              currentPage === "/movies" ? "header__link_active" : ""
+            }`}>
               Фильмы
             </Link>
-            <Link to="/saved-movies" className="header__link">
+            <Link to="/saved-movies"
+             className={`header__link ${
+              currentPage === "/saved-movies" ? "header__link_active" : ""
+            }`}>
               Сохраненные фильмы
             </Link>
           </nav>

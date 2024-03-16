@@ -52,7 +52,7 @@
   background-color: #2f2f2f;
   margin: 50px auto 80px;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 500;
   line-height: 14.52px;
@@ -77,4 +77,8 @@
 .cards__more:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.cards__notfound {
+  color: #ffffff;
 }

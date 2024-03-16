@@ -1,9 +1,162 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Auth.css";
 import "../Main/Main.css";
+import mainApi from "../../utils/MainApi";
 
-function Auth({ register, title, button, text, linkTo, linkText }) {
+function Auth({
+  title,
+  button,
+  text,
+  linkTo,
+  linkText,
+  tokenError,
+  handleLogin,
+  isLoggedIn
+}) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const register = location.pathname === "/signup";
+
+  const handleNameChange = (e) => {
+    const nameRegex = /^[A-Za-zА-Яа-яЁё\s-]*$/;
+    const isValidInput = nameRegex.test(e.target.value);
+    setName(e.target.value);
+    if (!e.target.value) {
+      setNameError("Поле должно быть заполнено");
+    } else if (!isValidInput) {
+      setNameError(
+        "Имя должно содержать только латинские или кириллические символы, пробелы или дефисы"
+      );
+    } else {
+      setNameError("");
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(e.target.value);
+    setEmail(e.target.value);
+    if (!e.target.value) {
+      setEmailError("Поле должно быть заполнено");
+    } else if (!isValidEmail) {
+      setEmailError("Введите корректный email");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (!e.target.value) {
+      setPasswordError("Поле должно быть заполнено");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    setIsLoading(true);
+    mainApi
+      .loginUser(email, password)
+      .then((data) => {
+        if (data.token) {
+          setEmail("");
+          setPassword("");
+        }
+        handleLogin();
+        navigate("/movies", { replace: true });
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setGeneralError("Вы ввели неправильный логин или пароль.");
+        } else if (tokenError) {
+          setGeneralError(tokenError);
+        } else {
+          setGeneralError(
+            "При авторизации произошла ошибка. Пожалуйста, попробуйте еще раз."
+          );
+        }
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    setGeneralError("");
+    if (!name || !email || !password) {
+      return;
+    }
+    setIsLoading(true);
+    mainApi
+      .registerUser(name, email, password)
+      .then(
+        () => {
+          mainApi
+            .loginUser(email, password)
+            .then((data) => {
+              if (data.token) {
+                setEmail("");
+                setPassword("");
+              }
+              handleLogin();
+              navigate("/movies", { replace: true });
+            })
+            .catch((err) => {
+              if (err.response && err.response.status === 401) {
+                setGeneralError("Вы ввели неправильный логин или пароль.");
+              } else if (tokenError) {
+                setGeneralError(tokenError);
+              } else {
+                setGeneralError(
+                  "При авторизации произошла ошибка. Пожалуйста, попробуйте еще раз."
+                );
+              }
+            });
+        },
+        (error) => {
+          if (error.response && error.response.status === 409) {
+            setGeneralError("Пользователь с таким email уже существует.");
+          } else {
+            setGeneralError(
+              "При регистрации пользователя произошла ошибка. Пожалуйста, попробуйте еще раз."
+            );
+          }
+        }
+      )
+      .catch((err) => {
+        setGeneralError(
+          "При регистрации пользователя произошла ошибка. Пожалуйста, попробуйте еще раз."
+        );
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const isFormValid = register
+    ? !nameError && !emailError && !passwordError && name && email && password
+    : !emailError && !passwordError && email && password;
+
+  if(isLoggedIn) {
+    return <Navigate to="/" />;
+  };
+
+
   return (
     <main className="main">
       <section className="auth">
@@ -12,7 +165,10 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
             <img alt="Лого" src={logo} className="auth__logo" />
           </Link>
           <h1 className="auth__title">{title}</h1>
-          <form className="auth__form">
+          <form
+            className="auth__form"
+            onSubmit={register ? handleRegisterSubmit : handleLoginSubmit}
+          >
             {register && (
               <div className="auth__input-box">
                 <label className="auth__input-label">Имя</label>
@@ -23,7 +179,11 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                   required
                   minLength="2"
                   maxLength="30"
-                ></input>
+                  value={name}
+                  onChange={handleNameChange}
+                  disabled={isLoading}
+                />
+                <p className="auth__input-error">{nameError}</p>
               </div>
             )}
             <div className="auth__input-box">
@@ -35,7 +195,11 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                 required
                 minLength="2"
                 maxLength="30"
-              ></input>
+                value={email}
+                onChange={handleEmailChange}
+                disabled={isLoading}
+              />
+              <p className="auth__input-error">{emailError}</p>
             </div>
             <div className="auth__input-box">
               <label className="auth__input-label">Пароль</label>
@@ -46,19 +210,29 @@ function Auth({ register, title, button, text, linkTo, linkText }) {
                 required
                 minLength="2"
                 maxLength="30"
-              ></input>
+                value={password}
+                onChange={handlePasswordChange}
+                disabled={isLoading}
+              />
+              <p className="auth__input-error">{passwordError}</p>
             </div>
-            <span className="auth__input-error auth__input-error_inactive">
-              Что-то пошло не так...
-            </span>
-            <button
-              type="submit"
-              className={`auth__button ${
-                register ? "auth__button_register" : ""
+            <div
+              className={`auth__button-box ${
+                register ? "auth__button-box_register" : ""
               }`}
             >
-              {button}
-            </button>
+              {generalError && (
+                <p className="auth__general-error">{generalError}</p>
+              )}
+              <button
+                type="submit"
+                className={`auth__button
+              }`}
+                disabled={!isFormValid}
+              >
+                {button}
+              </button>
+            </div>
           </form>
           <div className="auth__link-box">
             <p className="auth__text">{text}</p>

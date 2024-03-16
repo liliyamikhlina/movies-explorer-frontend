@@ -4,4 +4,3 @@ IP 158.160.11.226
 
 Frontend: https://liliya.mikh.nomoredomainswork.ru   
 [Ссылка на pull request](https://github.com/liliyamikhlina/movies-explorer-frontend/pull/2)
-

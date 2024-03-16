@@ -1,14 +1,15 @@
 import Auth from "../Auth/Auth";
 
-function Register() {
+function Register({ handleLogin, isLoggedIn }) {
   return (
       <Auth
-        register={true}
         title={"Добро пожаловать!"}
         button={"Зарегистрироваться"}
         text={"Уже зарегистрированы?"}
         linkTo={"/signin"}
         linkText={"Войти"}
+        handleLogin={handleLogin}
+        isLoggedIn={isLoggedIn}
       />
   );
 }
