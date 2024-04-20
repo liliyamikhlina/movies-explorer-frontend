@@ -1,15 +1,10 @@
 import { useState } from "react";
 import "./FilterCheckbox.css";
 
-function FilterCheckbox() {
-  const [checkboxActive, setCheckboxActive] = useState(true);
-
-  const handleCheckboxToggle = () => {
-    setCheckboxActive(!checkboxActive);
-  };
+function FilterCheckbox({ isShortFilmsChecked, handleShortFilmsCheckbox }) {
 
   return (
-    <div className="search__checkbox-bg" onClick={handleCheckboxToggle}>
+    <div className="search__checkbox-bg" onClick={handleShortFilmsCheckbox}>
       <input
         className="search__checkbox-input"
         type="checkbox"
@@ -17,7 +12,7 @@ function FilterCheckbox() {
       />
       <div
         className={`search__checkbox ${
-          checkboxActive ? "" : "search__checkbox_inactive"
+          isShortFilmsChecked ? "" : "search__checkbox_inactive"
         }`}
       ></div>
       <label className="search__checkbox-label">Короткометражки</label>

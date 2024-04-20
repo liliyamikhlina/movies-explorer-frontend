@@ -4,6 +4,7 @@
   border-bottom: 1px solid #424242;
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
 @media (max-width: 768px) {
@@ -130,4 +131,21 @@
 .search__button:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.search__error {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 78px;
+  left: 63px;
+  color: #ee3465;
+  font-size: 14px;
+}
+
+@media (max-width: 430px) {
+  .search__error {
+    left: 19px;
+    font-size: 12px;
+  }
 }

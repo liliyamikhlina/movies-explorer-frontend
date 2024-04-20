@@ -1,8 +1,8 @@
 import MoviesTemplate from "../MoviesTemplate/MoviesTemplate";
+import { useEffect, useState } from "react";
 
-function Movies({
+function SavedMovies({
   moviesList,
-  isLoading,
   handleMovieLike,
   handleMovieDislike,
   handleMovieDelete,
@@ -10,7 +10,7 @@ function Movies({
   return (
     <MoviesTemplate
       moviesList={moviesList}
-      isLoading={isLoading}
+      isLoading={false}
       handleMovieLike={handleMovieLike}
       handleMovieDislike={handleMovieDislike}
       handleMovieDelete={handleMovieDelete}
@@ -18,4 +18,4 @@ function Movies({
   );
 }
 
-export default Movies;
+export default SavedMovies;
